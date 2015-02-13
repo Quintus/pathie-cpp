@@ -223,6 +223,29 @@ refers to the locale of the environment):
 std::locale::global(std::locale(""));
 ~~~~~~~~~~~~~~~~~~~~~
 
+Links
+-----
+
+* Repository: https://github.com/Quintus/pathie-cpp
+* Issue tracker: https://github.com/Quintus/pathie-cpp/issues
+* Website with online documentation: http://quintus.github.io/pathie-cpp/
+
+Contributing
+------------
+
+This library is free software under the GPL (see _License_ below), so
+you can basically do with it as you like. If you want me to include
+your changes into the main repository, I will happily do so after you
+have signed a Contributor License Agreement (CLA) as outlined at
+<http://www.guelkerdev.de/contributing/>. I’ll ask you to do so if you
+submit something to me, so don’t worry if you forget it.
+
+Other than that, the usual things apply. Try to make separate branches
+for your new features, give a description on what you changed,
+etc. The main unstable development branch is `devel`, so unless you
+are working on release-specific fixes this is where you should target
+your PR at.
+
 Don’t you duplicate boost::filesystem?
 -------------------------------------
 
@@ -256,22 +279,6 @@ be idiomatic C++).
 
 Also, pathie is a small library. Adding it to your project shouldn’t
 hurt too much, while boost::filesystem is quite a large dependency.
-
-Contributing
-------------
-
-This library is free software under the GPL (see _License_ below), so
-you can basically do with it as you like. If you want me to include
-your changes into the main repository, I will happily do so after you
-have signed a Contributor License Agreement (CLA) as outlined at
-<http://www.guelkerdev.de/contributing/>. I’ll ask you to do so if you
-submit something to me, so don’t worry if you forget it.
-
-Other than that, the usual things apply. Try to make separate branches
-for your new features, give a description on what you changed,
-etc. The main unstable development branch is `devel`, so unless you
-are working on release-specific fixes this is where you should target
-your PR at.
 
 License
 -------
