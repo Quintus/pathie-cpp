@@ -20,6 +20,10 @@
 
 #ifndef PATHIE_PATHIE_HPP
 #define PATHIE_PATHIE_HPP
+#if __cplusplus < 201103L
+#error Pathie requires C++11 support. Please use an option such as -std=c++11 to enable it.
+#endif
+
 #include <string>
 
 #include "config.hpp"

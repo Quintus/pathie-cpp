@@ -125,4 +125,4 @@ install(DIRECTORY "${CMAKE_SOURCE_DIR}/include/"
   DESTINATION include/pathie)
 
 install(FILES "${CMAKE_BINARY_DIR}/config.hpp"
-  DESTINATION include/pathie/config.hpp)
+  DESTINATION include/pathie)
