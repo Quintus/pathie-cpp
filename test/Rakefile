@@ -72,7 +72,7 @@ task :test => [:build, :testfiles] do
   unless File.file?("testsettings.conf")
     puts "testsettings.conf is missing. Generate one with $ rake testsettings"
     puts "and adapt it to the local pathes."
-    raise "testsettings.yml missing"
+    raise "testsettings.conf missing"
   end
 
   SOURCES.sort.each do |file|

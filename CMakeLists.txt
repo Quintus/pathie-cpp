@@ -29,7 +29,7 @@ set(PATHIE_VERSION_MINOR 0)
 set(PATHIE_VERSION_PATCH 1)
 
 execute_process(COMMAND git rev-parse --short HEAD
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  WORKING_DIRECTORY ${Pathie_SOURCE_DIR}
   OUTPUT_VARIABLE PATHIE_VERSION_GIT
   OUTPUT_STRIP_TRAILING_WHITESPACE)
 
@@ -58,9 +58,9 @@ if (WIN32)
   add_definitions("-DWINVER=0x0600") # Vista
 endif()
 
-configure_file(${CMAKE_SOURCE_DIR}/config.hpp.in
-  ${CMAKE_BINARY_DIR}/config.hpp)
-include_directories(${CMAKE_BINARY_DIR})
+configure_file(${Pathie_SOURCE_DIR}/config.hpp.in
+  ${Pathie_BINARY_DIR}/config.hpp)
+include_directories(${Pathie_BINARY_DIR})
 
 ########################################
 # Adjustments to cmake’s defaults
@@ -74,7 +74,7 @@ file(GLOB_RECURSE pathie_sources
   "src/*.cpp"
   "include/*.hpp"
 )
-include_directories("${CMAKE_SOURCE_DIR}/include")
+include_directories("${Pathie_SOURCE_DIR}/include")
 
 file(GLOB_RECURSE test_sources
   "test/*.cpp")
@@ -106,7 +106,7 @@ endif()
 #    set(testtargetname "${testtargetname}.test")
 #    message(STATUS "TESTFILE: ${testtargetname}")
 #    #string(REPLACE ".cpp" ".test" testtargetname ${testfile})
-#    add_executable(${testtargetname} ${testfile} ${CMAKE_SOURCE_DIR}/test/testhelpers.hpp)
+#    add_executable(${testtargetname} ${testfile} ${Pathie_SOURCE_DIR}/test/testhelpers.hpp)
 #  endforeach()
 #endif()
 
@@ -121,8 +121,8 @@ if (CMAKE_BUILD_SHARED_LIBS)
     DESTINATION lib)
 endif()
 
-install(DIRECTORY "${CMAKE_SOURCE_DIR}/include/"
+install(DIRECTORY "${Pathie_SOURCE_DIR}/include/"
   DESTINATION include/pathie)
 
-install(FILES "${CMAKE_BINARY_DIR}/config.hpp"
+install(FILES "${Pathie_BINARY_DIR}/config.hpp"
   DESTINATION include/pathie)
