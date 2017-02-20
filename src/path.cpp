@@ -678,9 +678,7 @@ Path Path::expand() const
  * each single component of the path, checks if it is a
  * symbolic link, and if so, resolves it.
  *
- * This method supports symbolic link resolving both on UNIX
- * systems and on Windows, where NTFS symbolic links are
- * followed just like on UNIX.
+ * This method supports symbolic link resolving only on UNIX.
  *
  * It still does not consider hardlinks, mountpoints, and junctions,
  * though. However, a hardlink is a real second valid name for an
@@ -721,7 +719,7 @@ Path Path::real() const
 
     // If that’s a symlink, resolve it and replace our path until
     // the symlink with the symlink’s target.
-    std::wstring reduced_path_utf16 = utf8_to_utf16(reduced_path.m_path);
+    /*std::wstring reduced_path_utf16 = utf8_to_utf16(reduced_path.m_path);
     if (is_ntfs_symlink(reduced_path_utf16.c_str())) {
       wchar_t* target_utf16 = read_ntfs_symlink(reduced_path_utf16.c_str());
       Path target(utf16_to_utf8(target_utf16));
@@ -737,12 +735,12 @@ Path Path::real() const
       for(auto iter=temp.begin(); iter != temp.end(); iter++)
         components.push_back(*iter);
     }
-    else {
+    else {*/
       // Note a symlink can point to another symlink, so we can only
       // advance to the next element if this element has been tested
       // for not being a symlink.
       pos++;
-    }
+      //}
   }
 
   // BUild a new path from the now resolved components
