@@ -23,14 +23,6 @@
 #if defined(_WIN32) && defined(__GNUC__)
 #include <cstdio>
 #include <cstdlib>
-
-// Declare nonstandard windows function only windows has and which will not
-// be detected by GCC if compiled with -std=c++11 or any other ISO-conformant
-// C++ standard otherwise.
-// Original docs of the declaration on MSDN: http://msdn.microsoft.com/en-us/library/yeby3zcb.aspx
-extern "C" {
-  FILE *_wfopen(const wchar_t *filename,const wchar_t *mode);
-}
 #endif
 
 namespace Pathie {

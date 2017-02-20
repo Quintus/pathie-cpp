@@ -37,14 +37,7 @@
 #include <direct.h>
 #include <shlobj.h>
 #include <shlwapi.h>
-
-// Declare nonstandard windows function only windows has and which will not
-// be detected by GCC if compiled with -std=c++11 or any other ISO-conformant
-// C++ standard otherwise.
-// Original docs of the declaration on MSDN: http://msdn.microsoft.com/en-us/library/yeby3zcb.aspx
-extern "C" {
-  FILE *_wfopen(const wchar_t *filename,const wchar_t *mode);
-}
+//#include <ntifs.h> // Currently not in msys2
 
 #elif defined(_PATHIE_UNIX)
 #include <unistd.h>
@@ -766,7 +759,10 @@ Path Path::real() const
 #endif
 }
 
-#ifdef __WIN32
+// Msys2 does currently not have ntifs.h windows header, which
+// is required for reading NTFS symlinks.
+#if 0
+//#ifdef __WIN32
 /*
  * Checking if a file is a symlink under Windows is insane.
  * See http://msdn.microsoft.com/en-us/library/windows/desktop/aa363940%28v=vs.85%29.aspx
@@ -1551,8 +1547,10 @@ bool Path::is_symlink() const
   if (!exists())
     return false;
 
-  std::wstring path = utf8_to_utf16(m_path);
-  return is_ntfs_symlink(path.c_str());
+  return false;
+  // ntifs.h is currently not included in msys2
+  //std::wstring path = utf8_to_utf16(m_path);
+  //return is_ntfs_symlink(path.c_str());
 #else
 #error Unsupported system.
 #endif
@@ -2019,16 +2017,19 @@ Path Path::readlink() const
 #elif defined(_WIN32)
   std::wstring utf16_path = utf8_to_utf16(m_path);
 
-  if (!is_ntfs_symlink(utf16_path.c_str()))
-    throw(std::runtime_error("Not an NTFS symlink."));
+  throw(std::runtime_error("NTFS symlinks currently not supported."));
 
-  wchar_t* utf16_target = NULL;
-  utf16_target = read_ntfs_symlink(utf16_path.c_str());
-
-  Path result(utf16_to_utf8(utf16_target));
-  free(utf16_target);
-
-  return result;
+  // ntifs.h currently not included in msys2.h
+  //if (!is_ntfs_symlink(utf16_path.c_str()))
+  //  throw(std::runtime_error("Not an NTFS symlink."));
+  //
+  //wchar_t* utf16_target = NULL;
+  //utf16_target = read_ntfs_symlink(utf16_path.c_str());
+  //
+  //Path result(utf16_to_utf8(utf16_target));
+  //free(utf16_target);
+  //
+  //return result;
 #else
 #error Unsupported system.
 #endif
