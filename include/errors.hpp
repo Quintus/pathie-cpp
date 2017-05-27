@@ -24,11 +24,13 @@
 #include <string>
 #include <cstdlib>
 
-#ifdef _WIN32
-// Only ever include <windows.h> after <cstdlib>, which defines __MSVCRT__,
-// otherwise you’ll get cryptic "undefined..." error messages on compilation.
-#include <windows.h>
-#endif
+/* DWORD is typedef'ed from unsigned long, see
+ * <https://msdn.microsoft.com/en-us/library/cc230318.aspx>
+ * HRESULT is typedef'ed from LONG, which in turn is a typedef
+ * of long, see <https://msdn.microsoft.com/en-us/library/cc230330.aspx>.
+ * I spell the types out here in this header to avoid having to
+ * include windows.h, which might interfer with programmes using
+ * pathie that want to include windows.h on itself. */
 
 #include "pathie.hpp"
 
@@ -63,24 +65,27 @@ namespace Pathie {
 
   /// This exception is thrown only on Windows, when a call to the Win32API
   /// fails.
+  /// The "unsigned long" type here is actually DWORD (which is it a
+  /// typedef of in Win32).
   class WindowsError: public PathieError {
   public:
-    WindowsError(DWORD val); ///< Constructs a new instance from the given GetLastError() value.
+    WindowsError(unsigned long val); ///< Constructs a new instance from the given GetLastError() value.
     virtual ~WindowsError() throw();
 
     inline int get_val(){return m_val;} ///< The GetLastError() value.
   private:
-    DWORD m_val;
+    unsigned long m_val;
   };
 
   /// Similar to WindowsError, this exception is thrown when a HANDLE function
   /// from the Win32API fails.
+  /// The "long" type here is actually HRESULT (which it is a typedef of in Win32).
   class WindowsHresultError: public PathieError {
   public:
-    WindowsHresultError(HRESULT value); ///< Constructs a new instance from the given handle function result.
+    WindowsHresultError(long value); ///< Constructs a new instance from the given handle function result.
     virtual ~WindowsHresultError() throw();
 
-    inline HRESULT get_val(){return m_val;} ///< The handle function result.
+    inline long get_val(){return m_val;} ///< The handle function result.
   private:
     int m_val;
   };
