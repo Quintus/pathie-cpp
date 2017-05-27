@@ -24,6 +24,10 @@
 #error Pathie requires C++11 support. Please use an option such as -std=c++11 to enable it.
 #endif
 
+#if !defined(_PATHIE_UNIX) && (defined(unix) || defined(__unix__) || defined(__unix) || defined(__APPLE__) || defined(BSD))
+#define _PATHIE_UNIX
+#endif
+
 #include <string>
 
 #include "errors.hpp"
