@@ -39,23 +39,13 @@
 namespace Pathie {
 
   /// Returns the version number is MAJOR.MINOR.TINY.
-  inline std::string version()
-  {
-    return std::to_string(PATHIE_VERSION_MAJOR) + "." + std::to_string(PATHIE_VERSION_MINOR) + "." + std::to_string(PATHIE_VERSION_PATCH);
-  }
+  std::string version();
 
   /**
    * Returns the Git commit this was build from.
    * Empty string if build without Git.
    */
-  inline std::string gitrevision()
-  {
-#ifdef PATHIE_VERSION_GIT
-    return PATHIE_VERSION_GIT;
-#else
-    return "";
-#endif
-  }
+  inline std::string gitrevision();
 
 #ifdef _WIN32
   std::string utf16_to_utf8(std::wstring);
