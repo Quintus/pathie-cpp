@@ -22,7 +22,6 @@
 #include <cstring>
 #include <sstream>
 #include "errors.hpp"
-#include "config.hpp"
 
 #if defined(_WIN32)
 #include <windows.h>

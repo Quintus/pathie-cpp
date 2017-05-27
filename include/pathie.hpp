@@ -26,7 +26,6 @@
 
 #include <string>
 
-#include "config.hpp"
 #include "errors.hpp"
 #include "path.hpp"
 #include "pathie_ofstream.hpp"
@@ -38,7 +37,7 @@ namespace Pathie {
   /// Returns the version number is MAJOR.MINOR.TINY.
   inline std::string version()
   {
-    return PATHIE_VERSION_MAJOR "." PATHIE_VERSION_MINOR "." PATHIE_VERSION_PATCH;
+    return std::to_string(PATHIE_VERSION_MAJOR) + "." + std::to_string(PATHIE_VERSION_MINOR) + "." + std::to_string(PATHIE_VERSION_PATCH);
   }
 
   /**

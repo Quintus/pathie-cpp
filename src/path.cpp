@@ -29,7 +29,6 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <stdexcept>
-#include "config.hpp"
 
 #if defined(_WIN32)
 #include <windows.h>

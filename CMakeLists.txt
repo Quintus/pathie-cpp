@@ -1,4 +1,4 @@
-# -*- mode: ruby; coding: utf-8 -*-
+# -*- mode: cmake; coding: utf-8 -*-
 # This file is part of Pathie.
 #
 # Pathie is a path management library.
@@ -56,11 +56,20 @@ if (WIN32)
   add_definitions("-D_WIN32_WINNT=0x0600") # Vista
   add_definitions("-D_WIN32_IE=0x0800") # IE 8.0+
   add_definitions("-DWINVER=0x0600") # Vista
+elseif(UNIX)
+  add_definitions("-D_PATHIE_UNIX=1")
 endif()
 
-configure_file(${Pathie_SOURCE_DIR}/config.hpp.in
-  ${Pathie_BINARY_DIR}/config.hpp)
-include_directories(${Pathie_BINARY_DIR})
+add_definitions("-DPATHIE_VERSION_MAJOR=${PATHIE_VERSION_MAJOR}")
+add_definitions("-DPATHIE_VERSION_MINOR=${PATHIE_VERSION_MINOR}")
+add_definitions("-DPATHIE_VERSION_PATCH=${PATHIE_VERSION_PATCH}")
+if (PATHIE_VERSION_GIT)
+  add_definitions("-DPATHIE_VERSION_GIT=\"${PATHIE_VERSION_GIT}\"")
+endif()
+
+if (ASSUME_UTF8_ON_UNIX)
+  add_definitions("-DASSUME_UTF8_ON_UNIX=1")
+endif()
 
 ########################################
 # Adjustments to cmake’s defaults
@@ -122,7 +131,4 @@ if (CMAKE_BUILD_SHARED_LIBS)
 endif()
 
 install(DIRECTORY "${Pathie_SOURCE_DIR}/include/"
-  DESTINATION include/pathie)
-
-install(FILES "${Pathie_BINARY_DIR}/config.hpp"
   DESTINATION include/pathie)
