@@ -206,10 +206,6 @@ which have a Unicode pathname encoding, especially modern Linuxes with
 UTF-8, such a situation can’t ever arise, because the Unicode
 encodings (UTF-*) cover all characters you can ever use.
 
-Note a possible problem in Pathie::Path::expand() when you link Pathie
-in statically and depend on expanding pathes like `~username/foo` on
-UNIX. See Pathie::Path::expand() docs for information on this.
-
 At least on FreeBSD, calling the POSIX `iconv()` function fails with
 the cryptic error message “Service unavailable” if a program is linked
 statically. I’ve reported [a bug on
