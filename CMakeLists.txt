@@ -25,8 +25,8 @@ project(Pathie)
 # Version number
 
 set(PATHIE_VERSION_MAJOR 0)
-set(PATHIE_VERSION_MINOR 0)
-set(PATHIE_VERSION_PATCH 1)
+set(PATHIE_VERSION_MINOR 1)
+set(PATHIE_VERSION_PATCH 0)
 
 execute_process(COMMAND git rev-parse --short HEAD
   WORKING_DIRECTORY ${Pathie_SOURCE_DIR}
