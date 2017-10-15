@@ -218,18 +218,27 @@ means that you currently can’t link in pathie statically on FreeBSD
 and systems which don’t allow statically linked executables to call
 `iconv()`.
 
-It is recommended to set your program’s locale to the environment’s
-locale before you call any functions the Pathie library provides on a
-UNIX system, because this will allow Pathie to use the correct
-encoding for filenames on UNIX systems. This is relevant where the
-environment’s encoding is not UTF-8, e.g. with $LANG set to
-`de_DE.ISO-8859-1`. You can do this as follows (the `""` locale always
-refers to the locale of the environment):
+On Linux systems, it is recommended to set your program’s locale to the
+environment’s locale before you call any functions the Pathie library
+provides, because this will allow Pathie to use the correct encoding
+for filenames. This is relevant where the environment’s encoding is
+not UTF-8, e.g. with $LANG set to `de_DE.ISO-8859-1`. You can do this
+as follows (the `""` locale always refers to the locale of the
+environment):
 
 ~~~~~~~~~~~~~~~~~~~~~{.cpp}
 #include <locale>
 std::locale::global(std::locale(""));
 ~~~~~~~~~~~~~~~~~~~~~
+
+This is not required on Windows nor on Mac OS X, because these
+operating systems always use UTF-16LE (Windows) or UTF-8 (Mac OS X) as
+the filesystem encoding, regardless of the user's locale. It however
+does not hurt to call this either, it simply makes no difference for
+Pathie on these systems. If you urgently need to avoid this call on
+Linux, you need to compile pathie with the special build option
+ASSUME_UTF8_ON_UNIX, which will force Pathie to assume that UTF-8 is
+used as the filesystem encoding under any UNIX-based system.
 
 Links
 -----
