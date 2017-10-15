@@ -83,11 +83,10 @@ Pathie::Path parent = yourpath.parent();
 
 But Pathie is much more than just an abstraction of different filepath
 encodings. It is a utility library for pathname manipulation, i.e. it
-allows you to do things like finding the parent directory, resolving
-symlinks (yes, including NTFS symlinks on Windows), expanding relative
-to absolute pathes, decomposing a filename into basename, dirname, and
-extension, and so on. See the documentation of the central
-Pathie::Path class on what you can do.
+allows you to do things like finding the parent directory, expanding
+relative to absolute pathes, decomposing a filename into basename,
+dirname, and extension, and so on. See the documentation of the
+central Pathie::Path class on what you can do.
 
 ~~~~~~~~~~~~~~~~~~~~~~{.cpp}
 // Assume current directory is /tmp
@@ -145,6 +144,10 @@ Windows. See the documentation of Pathie::ofstream for more
 information.
 
 ~~~~~~~~~~~~~~~~~{.cpp}
+#include <pathie/pathie_ofstream>
+
+// ...
+
 Pathie::Path p("Bärenstark.txt");
 Pathie::ofstream file(p);
 file << "Some content" << std::endl;
