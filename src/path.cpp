@@ -611,29 +611,7 @@ Path Path::prune() const
  * following substitution sequences are encountered, it will be
  * replaced accordingly.
  *
- * * "~" is expanded to the user’s home directory, see home().
- * * "~name" is expanded to the specific user’s home directory
- *   on UNIX. On Windows, requesting another
- *   user’s directories requires admin privileges, hence this
- *   expansion is not applied on Windows. If the user is not found,
- *   no substitution will take place.
- *   If this sequence is encountered on UNIX, this method will
- *   access the `/etc/passwd` file via the `getpwent(3)` function.
- *
- * Some versions of the GNU C library have problems when using the
- * getpwent(3) function from within a static build. If you use a
- * statically linked version of the Pathie library, you may encounter
- * this message when linking:
- *
- * > warning: Using 'getpwent' in statically linked
- * > applications requires at runtime the shared libraries from the
- * > glibc version used for linking
- *
- * It seems that the `getpwent()` call in such a case always returns
- * a `NULL` pointer with `errno` still set to `0`. As a consequence,
- * the `~name` expansion will fail silently. The solution to this
- * problem is to link Pathie in dynamically or not rely on that expansion
- * mechanism.
+ * "~" is expanded to the user’s home directory, see home().
  *
  * \returns a new instance with everything expanded.
  *
@@ -658,24 +636,6 @@ Path Path::expand() const
       // User home requested
       str.replace(0, 1, homepath.m_path);
     }
-    else {
-#if defined(_PATHIE_UNIX)
-      // Specific home requested
-      std::string username;
-      size_t pos = 0;
-
-      if ((pos = m_path.find("/")) != string::npos) // ~foo/bar
-        username = m_path.substr(1, pos - 1);
-      else // No subdirectories: ~foo
-        username = m_path.substr(1);
-
-      std::string homedir = get_home(username);
-      if (!homedir.empty()) {
-        str.replace(0, pos /*npos is ok here*/, homedir);
-      }
-      // If `homedir' is empty the user doesn’t exist. We don’t substitute anything then.
-#endif
-  }
 
     path = Path(str);
   }
@@ -3148,38 +3108,6 @@ Path Path::global_programs_dir()
 }
 
 ///@}
-
-#ifdef _PATHIE_UNIX
-/**
- * Retrieves the home directory for the given user from the /etc/passwd
- * file. If the requested user is not found, an empty string is returned.
- */
-std::string Path::get_home(std::string username)
-{
-  struct passwd* p_passwd = NULL;
-  std::string username_nstr = utf8_to_filename(username);
-  std::string result;
-
-  int errsav = 0;
-  errno = 0;
-  while((p_passwd = getpwent())) {
-    if (strcmp(username_nstr.c_str(), p_passwd->pw_name) == 0) {
-      result = filename_to_utf8(p_passwd->pw_dir);
-      break;
-    }
-    errno = 0;
-  }
-
-  errsav = errno;
-  endpwent();
-
-  if (errsav != 0)
-    throw(Pathie::ErrnoError(errsav));
-
-  return result;
-}
-#endif
-
 
 /** \name Miscellaneous static functions
  *
