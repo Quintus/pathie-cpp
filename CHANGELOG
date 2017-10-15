@@ -1,5 +1,6 @@
 -- Version 0.1.0 (unreleased) --
 
+* Switch license from GPL3 to BSD-2clause.
 * Drop support for expanding "~username/foo" constructs. This
   nonstandard extension was unportable and caused problems when
   linking Pathie statically.

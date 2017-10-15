@@ -243,25 +243,16 @@ used as the filesystem encoding under any UNIX-based system.
 Links
 -----
 
-* Repository: https://github.com/Quintus/pathie-cpp
+* Project page: https://www.guelkerdev.de/projects/pathie/
+* GitHub mirror: https://github.com/Quintus/pathie-cpp
 * Issue tracker: https://github.com/Quintus/pathie-cpp/issues
-* Website with online documentation: http://quintus.github.io/pathie-cpp/
 
 Contributing
 ------------
 
-This library is free software under the GPL (see _License_ below), so
-you can basically do with it as you like. If you want me to include
-your changes into the main repository, I will happily do so after you
-have signed a Contributor License Agreement (CLA) as outlined at
-<http://www.guelkerdev.de/contributing/>. I’ll ask you to do so if you
-submit something to me, so don’t worry if you forget it.
-
-Other than that, the usual things apply. Try to make separate branches
-for your new features, give a description on what you changed,
-etc. The main unstable development branch is `devel`, so unless you
-are working on release-specific fixes this is where you should target
-your PR at.
+Feel free to submit any contributions you deem useful. Try to make
+separate branches for your new features, give a description on what
+you changed, etc.
 
 Don’t you duplicate boost::filesystem?
 -------------------------------------
@@ -300,32 +291,4 @@ hurt too much, while boost::filesystem is quite a large dependency.
 License
 -------
 
-Pathie is a path management library.
-
-Copyright © 2015 Marvin Gülker
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-### Commercial use ###
-
-If you have the urgent feeling that you don’t want to help free
-software to spread, feel free to contact me. We might be able to work
-something out on an individual base.
-
-### Contact information ###
-
-My email address is <m-guelker@guelkerdev.de>. You can find my
-paper mail address on [my website](http://www.guelkerdev.de).
-
-_To not use UTF-16LE, nevermore…_
+See the file “LICENSE”.
