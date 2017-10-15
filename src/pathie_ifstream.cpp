@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "pathie_ifstream.hpp"
+#include "../include/pathie_ifstream.hpp"
 
 namespace Pathie {
 #if defined(_PATHIE_UNIX)

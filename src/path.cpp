@@ -18,6 +18,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "../include/path.hpp"
+#include "../include/pathie.hpp"
+#include "../include/errors.hpp"
+
 #include <cstdlib>
 #include <cstdio>
 #include <ctime>
@@ -56,8 +60,6 @@
 #include <sys/time.h>
 #include <sys/sysctl.h>
 #endif
-
-#include "pathie.hpp"
 
 using namespace Pathie;
 using namespace std;

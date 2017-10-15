@@ -83,7 +83,6 @@ file(GLOB_RECURSE pathie_sources
   "src/*.cpp"
   "include/*.hpp"
 )
-include_directories("${Pathie_SOURCE_DIR}/include")
 
 file(GLOB_RECURSE test_sources
   "test/*.cpp")

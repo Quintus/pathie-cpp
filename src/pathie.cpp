@@ -18,7 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "pathie.hpp"
+#include "../include/pathie.hpp"
+#include "../include/errors.hpp"
 
 #if defined(_WIN32)
 #include <windows.h>

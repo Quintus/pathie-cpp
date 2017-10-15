@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "pathie_ofstream.hpp"
+#include "../include/pathie_ofstream.hpp"
 
 #if defined(_WIN32) && defined(__GNUC__)
 #include <cstdio>

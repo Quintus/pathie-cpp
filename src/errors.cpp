@@ -18,10 +18,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "../include/errors.hpp"
+
 #include <cerrno>
 #include <cstring>
 #include <sstream>
-#include "errors.hpp"
 
 #if defined(_WIN32)
 #include <windows.h>
