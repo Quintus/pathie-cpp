@@ -191,9 +191,21 @@ void Path::sanitize()
  * Returns a copy of the underlying `std::string`. This is always
  * encoded in UTF-8, regardless of the operating system.
  *
- * \see native()
+ * \see native() utf8_str()
  */
 std::string Path::str() const
+{
+  return m_path;
+}
+
+/**
+ * This method does the same as str(). It exists to make code using
+ * the UTF-8 variant more readable, because one tends to forget
+ * whether str() returns the native or the UTF-8 variant.
+ *
+ * \see native() str()
+ */
+std::string Path::utf8_str() const
 {
   return m_path;
 }

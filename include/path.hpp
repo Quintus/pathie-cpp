@@ -229,6 +229,8 @@ namespace Pathie {
 
     /// Return the path as a raw std::string.
     std::string str() const;
+    /// Alias for str().
+    std::string utf8_str() const;
     /// Assign the given string to the underlying path.
     void assign(std::string str);
 
