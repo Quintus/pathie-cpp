@@ -21,7 +21,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <locale>
-#include <pathie.hpp>
+#include "../include/pathie.hpp"
 #include "testhelpers.hpp"
 
 using namespace Pathie;

@@ -21,7 +21,8 @@
 #include <cstdlib>
 #include <cstring>
 #include <locale>
-#include <pathie.hpp>
+#include "../include/pathie_ifstream.hpp"
+#include "../include/pathie_ofstream.hpp"
 #include "testhelpers.hpp"
 
 #if defined(_PATHIE_UNIX)

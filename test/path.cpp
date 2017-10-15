@@ -22,7 +22,9 @@
 #include <algorithm>
 #include <locale>
 #include <map>
-#include <pathie.hpp>
+#include <fstream>
+#include "../include/path.hpp"
+#include "../include/errors.hpp"
 #include "testhelpers.hpp"
 
 #if defined(_PATHIE_UNIX)
@@ -397,10 +399,10 @@ void test_expand()
   Path p8(str + s_testsettings["username"] + "/foo/../bar");
 
   EQUAL(s_testsettings["homedir"], p1.expand());
-  EQUAL(s_testsettings["homedir"], p2.expand());
+  EQUAL(str + s_testsettings["username"], p2.expand());
   EQUAL(s_testsettings["homedir"] + "/foo/bar", p3.expand());
-  EQUAL(s_testsettings["homedir"] + "/foo/bar", p4.expand());
-  EQUAL(s_testsettings["homedir"] + "/bar", p8.expand());
+  EQUAL(str + s_testsettings["username"] + "/foo/bar", p4.expand());
+  EQUAL(str + s_testsettings["username"] + "/bar", p8.expand());
 
 #elif defined(__WIN32)
   std::string str2("C:");
