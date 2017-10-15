@@ -799,25 +799,35 @@ void test_symbolic_links()
   p1.touch();
   IS_TRUE(p1.exists());
 
-  p2.make_symlink(p1); // Link to absolute target
-  IS_TRUE(p2.exists());
-  IS_TRUE(p2.is_symlink());
-  IS_FALSE(p1.is_symlink());
+  try {
+    p2.make_symlink(p1); // Link to absolute target
+    IS_TRUE(p2.exists());
+    IS_TRUE(p2.is_symlink());
+    IS_FALSE(p1.is_symlink());
 
-  EQUAL(Path::pwd().join("foo/bar/baz").str(), p2.readlink());
-  p2.unlink();
-  IS_FALSE(p2.is_symlink()); // deleted file
+    EQUAL(Path::pwd().join("foo/bar/baz").str(), p2.readlink());
+    p2.unlink();
+    IS_FALSE(p2.is_symlink()); // deleted file
 
-  p2.make_symlink(p3); //  Link to relative target
-  IS_TRUE(p2.is_symlink());
-  EQUAL("xxx", p2.readlink());
+    p2.make_symlink(p3); //  Link to relative target
+    IS_TRUE(p2.is_symlink());
+    EQUAL("xxx", p2.readlink());
+  }
+  catch(Pathie::WindowsError& err) {
+    if (err.get_val() == ERROR_PRIVILEGE_NOT_HELD)
+      std::cout << "Process is not allowed to create symlinks, ignoring test" << std::endl;
+    else
+      std::cout << FAIL << std::endl;
+  }
 
   p2.parent().rmtree();
 }
 
 int main(int argc, char* argv[])
 {
+#ifndef _WIN32
   std::locale::global(std::locale(""));
+#endif
 
   std::cout << "Cleaning." << std::endl;
   system("rake clean");

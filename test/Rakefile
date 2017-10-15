@@ -51,6 +51,10 @@ end
 task :build => SOURCES do
   if ENV["CROSSTEST"]
     cp "../crossbuild/libpathie.dll", "."
+  elsif RUBY_PLATFORM =~ /mingw|mswin/
+    cp "C:/msys32/mingw32/bin/libgcc_s_dw2-1.dll", "."
+    cp "C:/msys32/mingw32/bin/libstdc++-6.dll", "."
+    cp "../build/libpathie.dll", "."
   end
 end
 
@@ -79,6 +83,8 @@ task :test => [:build, :testfiles] do
     puts "--- #{file} ---"
     if ENV["CROSSTEST"]
       sh "wine #{file}"
+    elsif RUBY_PLATFORM =~ /mingw|mswin/
+      sh "./#{file}"
     else
       sh "LD_LIBRARY_PATH=#{File.expand_path(File.join(File.expand_path(File.dirname(__FILE__)), "..", "build"))} ./#{file}"
     end
@@ -113,20 +119,20 @@ task :testsettings do
     file.puts "username=nobody"
 
     if RUBY_PLATFORM =~ /mingw|mswin/
-      file.puts "homedir=C:/users/nobody"
-      file.puts "datadir=C:/users/nobody/AppData/Roaming"
-      file.puts "configdir=C:/users/nobody/AppData/Roaming"
-      file.puts "cachedir=C:/users/nobody/AppData/Local"
-      file.puts "tempdir=C:/users/nobody/AppData/Local/Temp"
+      file.puts "homedir=C:/Users/nobody"
+      file.puts "datadir=C:/Users/nobody/AppData/Roaming"
+      file.puts "configdir=C:/Users/nobody/AppData/Roaming"
+      file.puts "cachedir=C:/Users/nobody/AppData/Local"
+      file.puts "tempdir=C:/Users/nobody/AppData/Local/Temp"
       file.puts ""
-      file.puts "desktopdir=C:/users/nobody/Desktop"
-      file.puts "documentsdir=C:/users/nobody/Documents"
-      file.puts "downloaddir=C:/users/nobody/Downloads"
-      file.puts "templatesdir=C:/users/nobody/AppData/Roaming/Microsoft/Windows/Templates"
-      file.puts "publicsharedir=C:/users/nobody/AppData/Roaming/Microsoft/Windows/Network Shortcuts"
-      file.puts "musicdir=C:/users/nobody/Music"
-      file.puts "picturesdir=C:/users/nobody/Pictures"
-      file.puts "videosdir=C:/users/nobody/Videos"
+      file.puts "desktopdir=C:/Users/nobody/Desktop"
+      file.puts "documentsdir=C:/Users/nobody/Documents"
+      file.puts "downloaddir=C:/Users/nobody/Downloads"
+      file.puts "templatesdir=C:/Users/nobody/AppData/Roaming/Microsoft/Windows/Templates"
+      file.puts "publicsharedir=C:/Users/nobody/AppData/Roaming/Microsoft/Windows/Network Shortcuts"
+      file.puts "musicdir=C:/Users/nobody/Music"
+      file.puts "picturesdir=C:/Users/nobody/Pictures"
+      file.puts "videosdir=C:/Users/nobody/Videos"
     else
       file.puts "homedir=/home/nobody"
       file.puts "datadir=/home/nobody/.local/share"

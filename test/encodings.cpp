@@ -47,6 +47,8 @@ void test_transcode()
 
 int main(int argc, char* argv[])
 {
+#ifndef _WIN32
   std::locale::global(std::locale(""));
+#endif
   test_transcode();
 }

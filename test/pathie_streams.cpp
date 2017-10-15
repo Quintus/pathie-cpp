@@ -117,7 +117,9 @@ void test_ifstream()
 
 int main(int argc, char* argv[])
 {
+#ifndef _WIN32
   std::locale::global(std::locale(""));
+#endif
   std::cout << "Cleaning." << std::endl;
   system("rake clean");
 
