@@ -30,11 +30,6 @@
 
 #include <string>
 
-#include "errors.hpp"
-#include "path.hpp"
-#include "pathie_ofstream.hpp"
-#include "pathie_ifstream.hpp"
-
 /// Namespace for this library.
 namespace Pathie {
 
@@ -45,7 +40,7 @@ namespace Pathie {
    * Returns the Git commit this was build from.
    * Empty string if build without Git.
    */
-  inline std::string gitrevision();
+  std::string gitrevision();
 
 #ifdef _WIN32
   std::string utf16_to_utf8(std::wstring);

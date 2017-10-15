@@ -26,7 +26,6 @@
 #include <ext/stdio_filebuf.h>
 #endif
 
-#include "pathie_ofstream.hpp"
 #include "path.hpp"
 
 namespace Pathie {

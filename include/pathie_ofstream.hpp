@@ -28,7 +28,6 @@
 #include <fstream>
 #endif
 
-#include "pathie_ifstream.hpp"
 #include "path.hpp"
 
 namespace Pathie {

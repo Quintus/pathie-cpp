@@ -53,11 +53,16 @@ Usage
 First thing is to include the main header:
 
 ~~~~~~~~~~~~~~~~~~{.cpp}
-#include <pathie.hpp>
+#include <pathie/path.hpp>
 ~~~~~~~~~~~~~~~~~~
 
-This will include any other headers as well. There should never be a
-need to include pathie’s complement headers.
+There are some more headers that you can include if needed. They are:
+
+* `pathie/errors.hpp` - Exception classes used
+* `pathie/pathie_ifstream.hpp` - std::ifstream replacement that accepts
+  Unicode filenames
+* `pathie/pathie_ofstream.hpp` - std::ofstream replacement that accepts
+  Unicode filenames
 
 Now consider the simple task to get all children of a directory, which
 have Unicode filenames. Doing that manually will result in you having
