@@ -159,10 +159,10 @@ Dependencies and linking
 
 Pathie is standalone, that is, it requires no other libraries except
 for those provided by your operating system. Note that there’s a
-caveat with this on Windows, which does provide the `shlwapi.lib`
-library by default, but does not automatically link it in. Be sure to
-add that library to your linking command when compiling for
-Windows.
+caveat with this on Windows, which does provide the `Shlwapi` library
+by default, but MinGW's GCC does not automatically link it in. Be sure
+to link to this library explicitely when compiling for MinGW Windows
+by appending `-lShlwapi` to the end of your linking command line.
 
 It is recommended to link in pathie as a dynamic library, because
 there are some problems with it when linked statically on certain
