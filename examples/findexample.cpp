@@ -25,7 +25,7 @@
  *   g++ -std=c++11 -I/path/to/pathie/include -L/path/to/pathie/lib findexample.cpp -static -lpathie -o findexample
  */
 #include <iostream>
-#include <pathie.hpp>
+#include <pathie/path.hpp>
 
 int main(int argc, char* argv[])
 {

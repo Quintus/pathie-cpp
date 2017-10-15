@@ -26,7 +26,7 @@
  */
 
 #include <iostream>
-#include <pathie.hpp>
+#include <pathie/path.hpp>
 
 int main(int argc, char* argv[])
 {
