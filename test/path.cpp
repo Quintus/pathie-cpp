@@ -799,7 +799,9 @@ void test_symbolic_links()
   p1.touch();
   IS_TRUE(p1.exists());
 
+#ifdef _WIN32
   try {
+#endif
     p2.make_symlink(p1); // Link to absolute target
     IS_TRUE(p2.exists());
     IS_TRUE(p2.is_symlink());
@@ -812,6 +814,7 @@ void test_symbolic_links()
     p2.make_symlink(p3); //  Link to relative target
     IS_TRUE(p2.is_symlink());
     EQUAL("xxx", p2.readlink());
+#ifdef _WIN32
   }
   catch(Pathie::WindowsError& err) {
     if (err.get_val() == ERROR_PRIVILEGE_NOT_HELD)
@@ -819,6 +822,7 @@ void test_symbolic_links()
     else
       std::cout << FAIL << std::endl;
   }
+#endif
 
   p2.parent().rmtree();
 }
