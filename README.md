@@ -1,5 +1,5 @@
-README
-======
+PATHIE.
+=======
 
 This is the Pathie project. It aims to provide a C++ library that covers
 all needs of pathname manipulation and filename fiddling, without
@@ -10,11 +10,13 @@ handling code with special regard to Unicode path names.
 Supported systems
 -----------------
 
-Currently supported platforms are Linux with GCC and Windows with GCC
-(via MinGW). Any other compiler or system might or might not work.
+Currently supported platforms are Linux and Windows, the latter via
+MSYS2 GCC. Any other compiler or system might or might not work. Mac
+OS should work as well, but I cannot test this due to lack of a Mac. I
+gladly accept contributions for any system or compiler.
 
-It is recommended to use at least GCC 4.9.0 due to full implementation
-of C++11.
+Pathie uses some C++11 constructs, so you need a C++11-capable
+compiler.
 
 The library
 -----------
@@ -29,23 +31,24 @@ code that was not marked as such. Many sites on the Internet claim
 Unicode path handling on Windows is easy, but in fact, it only is if
 you define “development for Windows” as “development with MSVC”,
 Microsoft’s proprietary C/C++ compiler, which provides nonstandard
-interfaces to allow for handling UTF-16LE filenames. The pathie
+interfaces to allow for handling UTF-16LE filenames. The Pathie
 library has been developed with a focus on MinGW and crosscompilation
-from Linux to Windows and thus does not suffer from this problem. It
-is guaranteed to work both with native g++ on Linux, native g++ via
-MinGW on Windows, and crosscompilation MinGW g++ on Linux. I will
-accept patches for other compilers, but I will not thoroughly test on
-them.
+from Linux to Windows and thus does not suffer from this problem.
 
-Even more, Pathie’s author is of the strong opinion that UTF-8 is the
-correct encoding to use, and is not willing to do differently on
-Windows. Visit the [UTF8 Everywhere](http://www.utf8everywhere.org)
-website if you need good arguments for this. However, the Windows
-world of course disagrees, and this is where the pathie library comes
-in. It allows you to do your entire pathname handling in UTF-8, and
-transparently converts to whatever pathname encoding the underlying
-system uses, such as UTF-16LE on Windows, without having you
-notice.
+The Pathie library has been developed to release the programmer from
+the burden of handling the different encodings in use for filenames,
+and does so by focusing its API on UTF-8 regardless of the platform in
+use. Thus, if you use UTF-8 as your preferred encoding inside your
+program (take a look at the [UTF8 Everywhere
+website](http://www.utf8everywhere.org) for reasons why you should do
+that), Pathie will be of the most use for you, since it transparently
+converts whatever filesystem encoding is encountered to UTF-8 in its
+public interface. Likewise, any pathname you pass to the library is
+assumed to be UTF-8 and is transcoded transparently to the filesystem
+encoding before invoking the respective OS' filesystem access
+methods. Of course, explicit conversion functions are also provided,
+in case you do need a string in the native encoding or need to
+construct a path from a string in the native encoding.
 
 Usage
 -----
@@ -271,8 +274,8 @@ found out that the neat trick shown in the documentation above indeed
 does work -- but only if you use the Microsoft Visual C++ compiler
 (MSVC) to compile your code. I don’t, I generally use g++ via the
 [MinGW](http://www.mingw.org) toolchain. boost::filesystem fails with
-g++ via MinGW with regard to Unicode filenames on Windows entirely and
-completely as of this writing (September 2014).
+g++ via MinGW with regard to Unicode filenames on Windows as of this
+writing (September 2014).
 
 Apart from that, pathie provides some additional methods, especially
 with regard to finding out where the user’s pathes are. It is modelled
