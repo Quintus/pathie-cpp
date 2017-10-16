@@ -136,14 +136,51 @@ legacy systems may still use something like ISO-8859-1 in which case
 that will differ. Therefore, only use the `Path` constructor if you
 are constructing from a UTF-8 string!
 
+### Opening a file with a Unicode path name
+
+On Windows with GCC, it is [not possible to open a file with Unicode
+pathname](https://stackoverflow.com/questions/821873) via C++'s usual
+`std::ifstream` and `std::ofstream` mechanism. There's a nonstandard
+extension provided by Microsoft's proprietary compiler that does this,
+but GCC does not have this extension. Consequently, code that is
+intended to compile on GCC (like Pathie) has to avoid it.
+
+There *is* however a function in the Win32API that allows to open a
+file with a Unicode pathname *and* that returns a standard C `FILE*`
+handle,
+[_wfopen()](http://msdn.microsoft.com/en-us/library/yeby3zcb.aspx). The
+method Path::fopen() uses this function on Windows and a regular C
+`fopen()` on all other platforms, thus allowing you to just deal with
+your Unicode filename via the regular C I/O interface. If you urgently
+need C++ I/O streams, read on.
+
 ### Stream replacements
 
 Pathie mainly provides you with the means to handle pathes, compose,
-and decompose them. Inspired by the [boost::nowide
-library](http://cppcms.com/files/nowide/html/) library, however, it
-also provides you with drop-in replacements for `std::ifstream` and
-`std::ofstream` that flawlessly work on Unicode pathes even on
-Windows. See the documentation of Pathie::ofstream for more
+and decompose them. There is an experimental feature however that
+provides replacements for C++ file streams that work with instances of
+Pathie::Path instead of strings for opening a file. These replacements
+are neither elegant nor portable, because they don't nicely honour the
+template concept the STL is based on by directly subclassing the
+standard streams in the matter needed most frequently and additionally
+relying on vendor-specific details. For GCC, an internal (but at least
+documented) interface is used to exchange the file descriptor inside a
+stream, and for MSVC, a nonstandard (but documented) constructor is
+used. Other compilers are not supported by this feature (which most
+notably affects clang, where I have no idea on the interfaces I need
+to use for such a trick).
+
+In one word, these replacements are hacky and I consider them
+experimental. If that does not strike you as problematic, you can
+enable this feature by passing `-DPATHIE_BUILD_STREAM_REPLACEMENTS=ON`
+when invoking `cmake` during the build process.
+
+In order to use the replacements, include the respective header
+(either `pathie_ifstream` or `pathie_ofstream`) and use the
+`Pathie::ifstream` and `Pathie::ofstream` classes just like you would
+use `std::ifstream` and `std::ofstream`, with the only difference
+being that you construct them from a Pathie::Path instance instead of
+a string. See the documentation of Pathie::ofstream for more
 information.
 
 ~~~~~~~~~~~~~~~~~{.cpp}
@@ -156,6 +193,12 @@ Pathie::ofstream file(p);
 file << "Some content" << std::endl;
 file.close()
 ~~~~~~~~~~~~~~~~~
+
+There's also the inofficial
+[boost::nowide](http://cppcms.com/files/nowide/html/), which is
+similar to this feature and maybe more reliable. It has [recently been
+accepted into
+boost](https://lists.boost.org/boost-announce/2017/06/0516.php).
 
 Dependencies and linking
 ------------------------
