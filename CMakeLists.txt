@@ -50,7 +50,7 @@ endif()
 ########################################
 # Flags & Options
 
-option(ASSUME_UTF8_ON_UNIX "Assume file pathes under UNIX to be always encoded in UTF-8." OFF)
+option(PATHIE_ASSUME_UTF8_ON_UNIX "Assume file pathes under UNIX to be always encoded in UTF-8." OFF)
 
 ########################################
 # Extra flags
@@ -76,8 +76,8 @@ if (PATHIE_VERSION_GIT)
   add_definitions("-DPATHIE_VERSION_GIT=\"${PATHIE_VERSION_GIT}\"")
 endif()
 
-if (ASSUME_UTF8_ON_UNIX)
-  add_definitions("-DASSUME_UTF8_ON_UNIX=1")
+if (PATHIE_ASSUME_UTF8_ON_UNIX)
+  add_definitions("-DPATHIE_ASSUME_UTF8_ON_UNIX=1")
 endif()
 
 ########################################

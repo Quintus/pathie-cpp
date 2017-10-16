@@ -236,8 +236,8 @@ the filesystem encoding, regardless of the user's locale. It however
 does not hurt to call this either, it simply makes no difference for
 Pathie on these systems. If you urgently need to avoid this call on
 Linux, you need to compile pathie with the special build option
-ASSUME_UTF8_ON_UNIX, which will force Pathie to assume that UTF-8 is
-used as the filesystem encoding under any UNIX-based system.
+PATHIE_ASSUME_UTF8_ON_UNIX, which will force Pathie to assume that
+UTF-8 is used as the filesystem encoding under any UNIX-based system.
 
 Links
 -----

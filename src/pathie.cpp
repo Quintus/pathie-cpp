@@ -181,7 +181,7 @@ std::string Pathie::utf8_to_filename(const std::string& utf8)
 {
   bool fs_encoding_is_utf8 = false;
 
-#if defined(__APPLE__) || defined(ASSUME_UTF8_ON_UNIX)
+#if defined(__APPLE__) || defined(PATHIE_ASSUME_UTF8_ON_UNIX)
   fs_encoding_is_utf8 = true;
 #else
   char* fsencoding = NULL;
@@ -206,7 +206,7 @@ std::string Pathie::filename_to_utf8(const std::string& native_filename)
 {
   bool fs_encoding_is_utf8 = false;
 
-#if defined(__APPLE__) || defined(ASSUME_UTF8_ON_UNIX)
+#if defined(__APPLE__) || defined(PATHIE_ASSUME_UTF8_ON_UNIX)
   fs_encoding_is_utf8 = true;
 #else
   char* fsencoding = NULL;
