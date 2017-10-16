@@ -50,6 +50,7 @@ endif()
 ########################################
 # Flags & Options
 
+option(PATHIE_BUILD_STREAM_REPLACEMENTS "Build the std::ifstream and std::ofstream replacements (experimental)." OFF)
 option(PATHIE_ASSUME_UTF8_ON_UNIX "Assume file pathes under UNIX to be always encoded in UTF-8." OFF)
 
 ########################################
@@ -88,10 +89,16 @@ set(CMAKE_BUILD_SHARED_LIBS On CACHE BOOL "Additionally to the static lib, build
 ########################################
 # Source files
 
-file(GLOB_RECURSE pathie_sources
-  "src/*.cpp"
-  "include/*.hpp"
-)
+list(APPEND pathie_sources
+  "src/errors.cpp"
+  "src/path.cpp"
+  "src/pathie.cpp")
+
+if (PATHIE_BUILD_STREAM_REPLACEMENTS)
+  list(APPEND pathie_sources
+    "src/pathie_ifstream.cpp"
+    "src/pathie_ofstream.cpp")
+endif()
 
 file(GLOB_RECURSE test_sources
   "test/*.cpp")
@@ -138,5 +145,16 @@ if (CMAKE_BUILD_SHARED_LIBS)
     DESTINATION lib)
 endif()
 
-install(DIRECTORY "${Pathie_SOURCE_DIR}/include/"
+install(FILES
+  "include/errors.hpp"
+  "include/path.hpp"
+  "include/pathie.hpp"
   DESTINATION include/pathie)
+
+if (PATHIE_BUILD_STREAM_REPLACEMENTS)
+  install(FILES
+    "include/pathie_ifstream.hpp"
+    "include/pathie_ofstream.hpp"
+    DESTINATION include/pathie)
+endif()
+
