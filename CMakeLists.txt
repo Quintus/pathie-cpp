@@ -158,3 +158,22 @@ if (PATHIE_BUILD_STREAM_REPLACEMENTS)
     DESTINATION include/pathie)
 endif()
 
+########################################
+# Status message
+
+message(STATUS "--------------- Build info summary ----------------")
+message(STATUS "Pathie version:     ${PATHIE_VERSION_MAJOR}.${PATHIE_VERSION_MINOR}.${PATHIE_VERSION_PATCH}")
+message(STATUS "Build type:         ${CMAKE_BUILD_TYPE}")
+message(STATUS "Install prefix:     ${CMAKE_INSTALL_PREFIX}")
+if (CMAKE_CROSSCOMPILING)
+  message(STATUS "Crosscompiling:     Yes")
+else()
+  message(STATUS "Crosscompiling:     No")
+endif()
+if (UNIX)
+  message(STATUS "Assume UTF-8:       ${PATHIE_ASSUME_UTF8_ON_UNIX}")
+else()
+  message(STATUS "Assume UTF-8:       option unavailable on this target")
+endif()
+message(STATUS "Stream replacments: ${PATHIE_BUILD_STREAM_REPLACEMENTS}")
+message(STATUS "---------------------------------------------------")
