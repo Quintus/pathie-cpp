@@ -1,5 +1,10 @@
 -- Version 0.1.0 (unreleased) --
 
+* Add Pathie::entry_iterator, Path::begin_entries(), and
+  Path::end_entries(). These allow you to use real C++
+  iterators for working with directory entries.
+* Change Path::find() to take a callback instead of std::function to
+  make it compile under C++98.
 * Add Path::operator/=.
 * Add `const' qualifier to Path::fopen() and Path::touch() as these
   methods leave the path itself unchanged.
