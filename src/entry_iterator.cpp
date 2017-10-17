@@ -133,6 +133,12 @@ void entry_iterator::close_native_handle()
  * the iterator will compare equal to the return value of the
  * default constructor, and dereferencing it yields an undefined
  * result.
+ *
+ * \remark Note that this operator does *not* return the old value
+ * the iterator had, simply because that would mean copying the
+ * receiver first, and copying instances of this class is not
+ * possible. Thus, *do not rely* on the return value of this
+ * method.
  */
 entry_iterator& entry_iterator::operator++(int)
 {
@@ -164,6 +170,7 @@ entry_iterator& entry_iterator::operator++(int)
   return *this;
 }
 
+/// Same as the other operator++().
 entry_iterator& entry_iterator::operator++()
 {
   return (operator++());
@@ -198,6 +205,16 @@ entry_iterator::operator bool() const
   return !!mp_directory;
 }
 
+/**
+ * Equality test. Two instances of this class are equal if:
+ *
+ * 1. If `other` is a terminal iterator as created by the parameterless
+ *    constructor: if the receiver has finished iterating the directory.
+ * 2. If `other` is not a terminal iterator as described: if both
+ *    iterators refer to the same top directory and their current
+ *    native handle is the same and in the same state (hint: this
+ *    is not going to happen under normal circumstances).
+ */
 bool entry_iterator::operator==(const entry_iterator& other) const
 {
   if (other.mp_directory == NULL) {
@@ -213,11 +230,16 @@ bool entry_iterator::operator==(const entry_iterator& other) const
   }
 }
 
+/// Inverse of operator==().
 bool entry_iterator::operator!=(const entry_iterator& other) const
 {
   return !(*this == other);
 }
 
+/**
+ * Derefence operator. Returns the entry the iterator currently
+ * points at.
+ */
 const Path* entry_iterator::operator->() const
 {
   return mp_cur_path;

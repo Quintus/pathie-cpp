@@ -48,6 +48,10 @@ namespace Pathie {
    *
    * Instances of this class cannot be copied, because they
    * wrap a native handle, e.g. a file descriptor on Linux.
+   *
+   * It is unspecified behaviour what happens if a directory entry is
+   * added or removed to/from the directory while you are iterating
+   * it. Thus, keep iterations short in time.
    */
   class entry_iterator: public std::iterator<std::input_iterator_tag, Path, int>
   {
