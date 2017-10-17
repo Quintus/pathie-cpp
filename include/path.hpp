@@ -277,7 +277,9 @@ namespace Pathie {
     bool operator>=(const Path& path) const;
 
     Path operator/(Path path) const;
-    Path operator/(std::string path) const;
+    Path operator/(std::string str) const;
+    Path& operator/=(Path path);
+    Path& operator/=(std::string str);
     Path join(Path path) const;
     Path join(std::string path) const;
     Path sub_ext(std::string new_extension) const;

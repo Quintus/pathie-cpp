@@ -2162,6 +2162,34 @@ Path Path::operator/(std::string str) const
 }
 
 /**
+ * Appends a / followed by the new component `path` onto this
+ * instance and returns this instance.
+ *
+ * \param path New component.
+ *
+ * \returns The receiver.
+ */
+Path& Path::operator/=(Path path)
+{
+  *this = join(path);
+  return *this;
+}
+
+/**
+ * Appends a / followed by the new component `path` onto this
+ * instance and returns this instance.
+ *
+ * \param str New component.
+ *
+ * \returns The receiver.
+ */
+Path& Path::operator/=(std::string str)
+{
+  *this = join(str);
+  return *this;
+}
+
+/**
  * Allows you to insert Pathie::Path instances into `std::cout`.
  *
  * ~~~~~~~~~~ c++
