@@ -31,10 +31,16 @@
  * findexample -- List all files in a directory recursively on standard output.
  *
  * Compile with:
- *   g++ -std=c++11 -I/path/to/pathie/include -L/path/to/pathie/lib findexample.cpp -static -lpathie -o findexample
+ *   g++ -std=c++98 -I/path/to/pathie/include -L/path/to/pathie/lib findexample.cpp -static -lpathie -o findexample
  */
 #include <iostream>
 #include <pathie/path.hpp>
+
+static bool callback(const Pathie::Path& entry)
+{
+  std::cout << entry << std::endl;
+  return true;
+}
 
 int main(int argc, char* argv[])
 {
@@ -44,10 +50,7 @@ int main(int argc, char* argv[])
   }
 
   Pathie::Path dir(argv[1]);
-  dir.find([](const Pathie::Path& entry) -> bool {
-    std::cout << entry << std::endl;
-    return true;
-  });
+  dir.find(callback);
 
   return 0;
 }

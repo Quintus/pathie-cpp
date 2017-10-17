@@ -15,8 +15,7 @@ MSYS2 GCC. Any other compiler or system might or might not work. Mac
 OS should work as well, but I cannot test this due to lack of a Mac. I
 gladly accept contributions for any system or compiler.
 
-Pathie uses some C++11 constructs, so you need a C++11-capable
-compiler.
+Pathie compiles as C++98 or later.
 
 The library
 -----------

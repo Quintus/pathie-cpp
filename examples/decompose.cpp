@@ -31,7 +31,7 @@
  * decompose -- Print decomposed path to standard output.
  *
  * Compile with:
- *   g++ -std=c++11 -I/path/to/pathie/include -L/path/to/pathie/lib decompose.cpp -static -lpathie -o decompose
+ *   g++ -std=c++98 -I/path/to/pathie/include -L/path/to/pathie/lib decompose.cpp -static -lpathie -o decompose
  */
 
 #include <iostream>

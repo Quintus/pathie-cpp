@@ -51,7 +51,7 @@ using namespace Pathie;
 entry_iterator::entry_iterator()
   : mp_directory(NULL),
     mp_cur(NULL),
-    mp_cur_path(NULL)
+    mp_cur_path(new Path())
 {
 }
 
@@ -72,6 +72,10 @@ entry_iterator::entry_iterator(const Path* p_directory)
 entry_iterator::~entry_iterator()
 {
   close_native_handle();
+
+  if (mp_cur_path)
+    delete mp_cur_path;
+
   // `mp_directory' is NOT deleted, because this class does not own it!
 }
 
@@ -223,7 +227,7 @@ bool entry_iterator::operator==(const entry_iterator& other) const
      * is terminated when `mp_cur' is null, so that's what is returned
      * in reality when a test with the terminal iterator is
      * requested. */
-    return !!mp_cur;
+    return !mp_cur;
   }
   else {
     return mp_directory == other.mp_directory && mp_cur == other.mp_cur;
@@ -244,3 +248,29 @@ const Path* entry_iterator::operator->() const
 {
   return mp_cur_path;
 }
+
+/// "Copy" constructor -- see class docs for more info.
+entry_iterator::entry_iterator(const entry_iterator& other)
+  : mp_directory(other.mp_directory),
+    mp_cur(other.mp_cur),
+    mp_cur_path(other.mp_cur_path)
+{
+  entry_iterator& e = const_cast<entry_iterator&>(other);
+  e.mp_directory    = NULL;
+  e.mp_cur          = NULL;
+  e.mp_cur_path     = NULL;
+}
+
+/// "Copy" assignment -- see class docs for more info.
+entry_iterator& entry_iterator::operator=(const entry_iterator& other)
+{
+  mp_directory      = other.mp_directory;
+  mp_cur            = other.mp_cur;
+  mp_cur_path       = other.mp_cur_path;
+
+  entry_iterator& e = const_cast<entry_iterator&>(other);
+  e.mp_directory    = NULL;
+  e.mp_cur          = NULL;
+  e.mp_cur_path     = NULL;
+}
+

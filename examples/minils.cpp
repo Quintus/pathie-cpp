@@ -31,7 +31,7 @@
  * minils -- List all files in a directory on standard output.
  *
  * Compile with:
- *   g++ -std=c++11 -I/path/to/pathie/include -L/path/to/pathie/lib minils.cpp -static -lpathie -o minils
+ *   g++ -std=c++98 -I/path/to/pathie/include -L/path/to/pathie/lib minils.cpp -static -lpathie -o minils
  */
 #include <iostream>
 #include <pathie/path.hpp>
