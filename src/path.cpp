@@ -133,7 +133,7 @@ Path::Path(const std::vector<Path>& components)
     }
 
     // Trailing slash is unwanted, remove it
-    m_path = m_path.substr(m_path.length()-1);
+    m_path = m_path.substr(0, m_path.length()-1);
   }
 }
 
