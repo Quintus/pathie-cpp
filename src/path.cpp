@@ -1312,7 +1312,7 @@ time_t Path::ctime() const
  * always includes the "." (current directory) and ".."
  * (parent directory) entries.
  */
-entry_iterator Path::begin_entries()
+entry_iterator Path::begin_entries() const
 {
   return entry_iterator(this);
 }
@@ -1321,7 +1321,7 @@ entry_iterator Path::begin_entries()
  * Returns the terminal iterator you test for in order to
  * find out whether the iteration is complete.
  */
-entry_iterator Path::end_entries()
+entry_iterator Path::end_entries() const
 {
   return entry_iterator();
 }
@@ -1336,7 +1336,7 @@ entry_iterator Path::end_entries()
  *
  * \see children()
  */
-std::vector<Path> Path::entries()
+std::vector<Path> Path::entries() const
 {
   std::vector<Path> results;
   for(entry_iterator iter=begin_entries(); iter != end_entries(); iter++) {
@@ -1359,7 +1359,7 @@ std::vector<Path> Path::entries()
  *
  * \see entries()
  */
-std::vector<Path> Path::children()
+std::vector<Path> Path::children() const
 {
   std::vector<Path> results;
   for(entry_iterator iter=begin_entries(); iter != end_entries(); iter++) {
@@ -1887,7 +1887,7 @@ void Path::touch()
  * the entire referenced directory hierarchy recursively, including
  * any files and directories contained therein.
  */
-void Path::rmtree()
+void Path::rmtree() const
 {
   if (is_directory()) {
     std::vector<Path> kids = children();

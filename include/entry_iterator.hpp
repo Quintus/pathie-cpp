@@ -53,9 +53,9 @@ namespace Pathie {
   {
   public:
     entry_iterator();
-    entry_iterator(Path* p_top);
+    entry_iterator(const Path* p_top);
     ~entry_iterator();
-    entry_iterator& operator=(Path* p_top); // Restart assignment
+    entry_iterator& operator=(const Path* p_top); // Restart assignment
     operator bool() const;
     bool operator==(const entry_iterator& other) const;
     bool operator!=(const entry_iterator& other) const;
@@ -67,7 +67,7 @@ namespace Pathie {
     void open_native_handle();
     void close_native_handle();
 
-    Path* mp_directory; ///< Path requested to read from.
+    const Path* mp_directory; ///< Path requested to read from.
     void* mp_cur; ///< Native handle to the opened directory.
     Path* mp_cur_path; ///< Path instance of the path pointed to by mp_cur (only a pointer to allow forward-declaration of Path).
   };

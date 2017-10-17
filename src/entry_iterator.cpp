@@ -58,7 +58,7 @@ entry_iterator::entry_iterator()
 /**
  * Construct an iterator that reads the entries in the given directory.
  */
-entry_iterator::entry_iterator(Path* p_directory)
+entry_iterator::entry_iterator(const Path* p_directory)
   : mp_directory(p_directory),
     mp_cur(NULL),
     mp_cur_path(new Path())
@@ -181,7 +181,7 @@ const Path& entry_iterator::operator*() const
 /**
  * Resets this iterator to start again on the path given.
  */
-entry_iterator& entry_iterator::operator=(Path* p_directory)
+entry_iterator& entry_iterator::operator=(const Path* p_directory)
 {
   close_native_handle();
   mp_directory = p_directory;

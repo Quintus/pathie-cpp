@@ -325,9 +325,9 @@ namespace Pathie {
     time_t ctime() const;
 
     /// List of entries.
-    std::vector<Path> entries();
+    std::vector<Path> entries() const;
     /// List of children.
-    std::vector<Path> children();
+    std::vector<Path> children() const;
 
     bool exists() const;
     bool is_directory() const;
@@ -344,12 +344,12 @@ namespace Pathie {
     /// "mkdir -p"-like functionality.
     void mktree() const;
     /// "rm -r"-link functionality.
-    void rmtree();
+    void rmtree() const;
     /// Change file names.
     void rename(Path& newname) const;
 
-    entry_iterator begin_entries();
-    entry_iterator end_entries();
+    entry_iterator begin_entries() const;
+    entry_iterator end_entries() const;
 
   private:
     static std::string make_tempname(const std::string& namepart);
