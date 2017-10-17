@@ -258,7 +258,7 @@ entry_iterator::entry_iterator(const entry_iterator& other)
   entry_iterator& e = const_cast<entry_iterator&>(other);
   e.mp_directory    = NULL;
   e.mp_cur          = NULL;
-  e.mp_cur_path     = NULL;
+  e.mp_cur_path     = new Path();
 }
 
 /// "Copy" assignment -- see class docs for more info.
@@ -271,6 +271,7 @@ entry_iterator& entry_iterator::operator=(const entry_iterator& other)
   entry_iterator& e = const_cast<entry_iterator&>(other);
   e.mp_directory    = NULL;
   e.mp_cur          = NULL;
-  e.mp_cur_path     = NULL;
+  e.mp_cur_path     = new Path();
+
 }
 
