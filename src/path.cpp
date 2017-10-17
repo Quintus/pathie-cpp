@@ -40,8 +40,8 @@
 #include <string>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <dirent.h>
 #include <stdexcept>
+#include <errno.h>
 
 #if defined(_WIN32)
 #include <windows.h>
@@ -133,7 +133,7 @@ Path::Path(const std::vector<Path>& components)
     }
 
     // Trailing slash is unwanted, remove it
-    m_path.pop_back();
+    m_path = m_path.substr(m_path.length()-1);
   }
 }
 
@@ -1225,7 +1225,7 @@ long Path::size() const
  * Returns the file’s last access time. The value is not
  * really reliable.
  */
-std::chrono::system_clock::time_point Path::atime() const
+time_t Path::atime() const
 {
 #if defined(_PATHIE_UNIX)
   struct stat s;
@@ -1243,7 +1243,7 @@ std::chrono::system_clock::time_point Path::atime() const
 #error Unsupported system.
 #endif
 
-  return std::chrono::system_clock::from_time_t(s.st_atime);
+  return s.st_atime;
 }
 
 /**
@@ -1251,7 +1251,7 @@ std::chrono::system_clock::time_point Path::atime() const
  *
  * Returns the file’s last modification time.
  */
-std::chrono::system_clock::time_point Path::mtime() const
+time_t Path::mtime() const
 {
 #if defined(_PATHIE_UNIX)
   struct stat s;
@@ -1269,7 +1269,7 @@ std::chrono::system_clock::time_point Path::mtime() const
 #error Unsupported system.
 #endif
 
-  return std::chrono::system_clock::from_time_t(s.st_mtime);
+  return s.st_mtime;
 }
 
 /**
@@ -1277,7 +1277,7 @@ std::chrono::system_clock::time_point Path::mtime() const
  *
  * Returns the file’s creation time.
  */
-std::chrono::system_clock::time_point Path::ctime() const
+time_t Path::ctime() const
 {
 #if defined(_PATHIE_UNIX)
   struct stat s;
@@ -1295,7 +1295,7 @@ std::chrono::system_clock::time_point Path::ctime() const
 #error Unsupported system.
 #endif
 
-  return std::chrono::system_clock::from_time_t(s.st_ctime);
+  return s.st_ctime;
 }
 
 ///@}
@@ -1307,58 +1307,23 @@ std::chrono::system_clock::time_point Path::ctime() const
 ///@{
 
 /**
- * \note This method accesses the file system.
- *
- * This is a lowlevel helper for iterating over all entries in
- * a directory. The callback is called for once for each entry
- * in the directory with a string that represents the entry;
- * "." and ".." are included somewhere during the iteration.
- *
- * \param func Callback function. Recommended to use with C++11 lambda.
- *
- * \returns The number of entries found.
+ * Returns an entry_iterator instance you can use to iterate
+ * the entries in a directory. Note that the list somewhere
+ * always includes the "." (current directory) and ".."
+ * (parent directory) entries.
  */
-long Path::each_entry(std::function<void (const std::string& entry)> func) const
+entry_iterator Path::begin_entries()
 {
-  long count = 0;
+  return entry_iterator(this);
+}
 
-#if defined(_PATHIE_UNIX)
-  DIR* p_dir = NULL;
-  std::string nstr = native();
-  p_dir = opendir(nstr.c_str());
-
-  if (!p_dir)
-    throw(Pathie::ErrnoError(errno));
-
-  struct dirent* p_dirent = NULL;
-  while ((p_dirent = readdir(p_dir)) != NULL) { // Assignment intended
-    func(filename_to_utf8(p_dirent->d_name));
-    count++;
-  }
-
-  closedir(p_dir);
-
-  return count;
-#elif defined(_WIN32)
-  std::wstring utf16 = utf8_to_utf16(m_path + "/*");
-  WIN32_FIND_DATAW finddata;
-
-  HANDLE findhandle = FindFirstFileW(utf16.c_str(), &finddata);
-  if (findhandle == INVALID_HANDLE_VALUE) {
-    DWORD err = GetLastError();
-    throw(Pathie::WindowsError(err));
-  }
-
-  func(utf16_to_utf8(finddata.cFileName));
-
-  while (FindNextFileW(findhandle, &finddata)) {
-    func(utf16_to_utf8(finddata.cFileName));
-    count++;
-  }
-
-  FindClose(findhandle);
-  return count;
-#endif
+/**
+ * Returns the terminal iterator you test for in order to
+ * find out whether the iteration is complete.
+ */
+entry_iterator Path::end_entries()
+{
+  return entry_iterator();
 }
 
 /**
@@ -1371,13 +1336,12 @@ long Path::each_entry(std::function<void (const std::string& entry)> func) const
  *
  * \see children()
  */
-std::vector<Path> Path::entries() const
+std::vector<Path> Path::entries()
 {
   std::vector<Path> results;
-  each_entry([&](const std::string& entry)
-  {
-    results.push_back(Path(entry));
- });
+  for(entry_iterator iter=begin_entries(); iter != end_entries(); iter++) {
+    results.push_back(*iter);
+  }
 
   return results;
 }
@@ -1395,13 +1359,13 @@ std::vector<Path> Path::entries() const
  *
  * \see entries()
  */
-std::vector<Path> Path::children() const
+std::vector<Path> Path::children()
 {
   std::vector<Path> results;
-  each_entry([&](const std::string& entry){
-    if (entry != "." && entry != "..")
-      results.push_back(Path(entry));
-  });
+  for(entry_iterator iter=begin_entries(); iter != end_entries(); iter++) {
+    if (*iter != Path(".") && *iter != Path(".."))
+      results.push_back(*iter);
+  }
 
   return results;
 }
@@ -1433,7 +1397,7 @@ std::vector<Path> Path::children() const
  * except that you will be given a directory entry before you
  * are given its child entries.
  */
-void Path::find(std::function<bool (const Path& entry)> func) const
+/*void Path::find(std::function<bool (const Path& entry)> func) const
 {
   each_entry([&](const std::string& entry2){
     // Skip . and ..
@@ -1444,7 +1408,7 @@ void Path::find(std::function<bool (const Path& entry)> func) const
       }
     }
   });
-}
+  }*/
 
 ///@}
 
@@ -1923,12 +1887,12 @@ void Path::touch()
  * the entire referenced directory hierarchy recursively, including
  * any files and directories contained therein.
  */
-void Path::rmtree() const
+void Path::rmtree()
 {
   if (is_directory()) {
     std::vector<Path> kids = children();
 
-     for(auto iter=kids.begin(); iter != kids.end(); iter++) {
+    for(std::vector<Path>::iterator iter=kids.begin(); iter != kids.end(); iter++) {
        join(*iter).rmtree();
     }
 

@@ -32,11 +32,11 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include <chrono>
 #include <functional>
 #include <sys/stat.h>
 
 #include "pathie.hpp"
+#include "entry_iterator.hpp"
 
 namespace Pathie {
 
@@ -231,10 +231,12 @@ namespace Pathie {
     static std::vector<Path> config_dirs();
 #endif
 
+    // HIER: Transformieren nach externem Objekt, um die Closure loszuwerden!
+
     /// Shell-like glob.
     static std::vector<Path> glob(const std::string& pattern, int flags = 0);
     /// Traverse directory recursively.
-    void find(std::function<bool (const Path& entry)> func) const;
+    //void find(std::function<bool (const Path& entry)> func) const;
 
     /// Return the path as a raw std::string.
     std::string str() const;
@@ -318,16 +320,14 @@ namespace Pathie {
 
     /// File size.
     long size() const;
-    std::chrono::system_clock::time_point atime() const;
-    std::chrono::system_clock::time_point mtime() const;
-    std::chrono::system_clock::time_point ctime() const;
+    time_t atime() const;
+    time_t mtime() const;
+    time_t ctime() const;
 
-    /// Low-level entry iterator.
-    long each_entry(std::function<void (const std::string& entry)> func) const;
     /// List of entries.
-    std::vector<Path> entries() const;
+    std::vector<Path> entries();
     /// List of children.
-    std::vector<Path> children() const;
+    std::vector<Path> children();
 
     bool exists() const;
     bool is_directory() const;
@@ -344,9 +344,12 @@ namespace Pathie {
     /// "mkdir -p"-like functionality.
     void mktree() const;
     /// "rm -r"-link functionality.
-    void rmtree() const;
+    void rmtree();
     /// Change file names.
     void rename(Path& newname) const;
+
+    entry_iterator begin_entries();
+    entry_iterator end_entries();
 
   private:
     static std::string make_tempname(const std::string& namepart);

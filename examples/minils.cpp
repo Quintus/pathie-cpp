@@ -44,10 +44,9 @@ int main(int argc, char* argv[])
   }
 
   Pathie::Path dir(argv[1]);
-  std::vector<Pathie::Path> entries = dir.entries();
-  std::vector<Pathie::Path>::const_iterator iter;
+  Pathie::entry_iterator iter;
 
-  for(iter = entries.begin(); iter != entries.end(); iter++) {
+  for(iter = dir.begin_entries(); iter != dir.end_entries(); iter++) {
     std::cout << (*iter) << std::endl;
   }
 

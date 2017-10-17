@@ -56,8 +56,11 @@ option(PATHIE_ASSUME_UTF8_ON_UNIX "Assume file pathes under UNIX to be always en
 ########################################
 # Extra flags
 
+set(CMAKE_CXX_STANDARD 98)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11 ")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra ")
 endif()
 
 # We only support Vista upwards. See http://msdn.microsoft.com/en-us/library/windows/desktop/aa383745(v=vs.85).aspx
@@ -91,6 +94,7 @@ set(CMAKE_BUILD_SHARED_LIBS On CACHE BOOL "Additionally to the static lib, build
 
 list(APPEND pathie_sources
   "src/errors.cpp"
+  "src/entry_iterator.cpp"
   "src/path.cpp"
   "src/pathie.cpp")
 
@@ -147,6 +151,7 @@ endif()
 
 install(FILES
   "include/errors.hpp"
+  "include/entry_iterator.hpp"
   "include/path.hpp"
   "include/pathie.hpp"
   DESTINATION include/pathie)

@@ -1,5 +1,6 @@
 -- Version 0.1.0 (unreleased) --
 
+* Add C++98 compatibility (instead of just C++11).
 * Mark stream replacements as experimental. They are mostly untested
   and I don't really use them.
 * Add PATHIE_BUILD_STREAM_REPLACEMENTS for building the stream

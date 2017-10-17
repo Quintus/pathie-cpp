@@ -29,8 +29,8 @@
 
 #ifndef PATHIE_PATHIE_HPP
 #define PATHIE_PATHIE_HPP
-#if __cplusplus < 201103L
-#error Pathie requires C++11 support. Please use an option such as -std=c++11 to enable it.
+#if __cplusplus < 199711L
+#error Pathie requires C++98 support. Please use an option such as -std=c++98 to enable it.
 #endif
 
 #if !defined(_PATHIE_UNIX) && (defined(unix) || defined(__unix__) || defined(__unix) || defined(__APPLE__) || defined(BSD))

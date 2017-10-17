@@ -81,6 +81,7 @@ std::wstring Pathie::utf8_to_utf16(std::string str)
 #ifdef _PATHIE_UNIX
 #include <cstring>
 #include <cstdlib>
+#include <errno.h>
 #include <iconv.h>
 #include <langinfo.h>
 #include <sys/param.h> // defines "BSD" macro on BSD systems
