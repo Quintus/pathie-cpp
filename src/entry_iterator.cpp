@@ -273,5 +273,6 @@ entry_iterator& entry_iterator::operator=(const entry_iterator& other)
   e.mp_cur          = NULL;
   e.mp_cur_path     = new Path();
 
+  return *this;
 }
 
