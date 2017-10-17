@@ -33,7 +33,7 @@ namespace Pathie {
 #if defined(_PATHIE_UNIX)
   // All well and easy under UNIX. Just delegate to standard constructor.
   Pathie::ifstream::ifstream(Pathie::Path path, std::ios_base::openmode mode)
-    : std::ifstream(path.native(), mode)
+    : std::ifstream(path.native().c_str(), mode)
   {
     //
   }
@@ -45,13 +45,13 @@ namespace Pathie {
   }
 
   Pathie::ifstream::ifstream(std::string path, std::ios_base::openmode mode)
-    : std::ifstream(utf8_to_filename(path), mode)
+    : std::ifstream(utf8_to_filename(path).c_str(), mode)
   {
     //
   }
 
   Pathie::ifstream::ifstream(char* path, std::ios_base::openmode mode)
-    : std::ifstream(utf8_to_filename(path), mode)
+    : std::ifstream(utf8_to_filename(path).c_str(), mode)
   {
     //
   }
@@ -64,12 +64,12 @@ namespace Pathie {
 
   void Pathie::ifstream::open(const std::string& filename, ios_base::openmode mode)
   {
-    std::ifstream::open(utf8_to_filename(filename), mode);
+    std::ifstream::open(utf8_to_filename(filename).c_str(), mode);
   }
 
   void Pathie::ifstream::open(const Pathie::Path& filename, ios_base::openmode mode)
   {
-    std::ifstream::open(filename.native(), mode);
+    std::ifstream::open(filename.native().c_str(), mode);
   }
 
 
