@@ -63,6 +63,13 @@ namespace Pathie {
     entry_iterator& operator++();
     const Path& operator*() const;
     const Path* operator->() const;
+
+    // Instances of this class are not copiable. Expressly state
+    // that in C++11, where it's possible to do that.
+#if (__cplusplus >= 201103L)
+    entry_iterator(const entry_iterator& other) = delete;
+    entry_iterator& operator=(const entry_iterator& other) = delete;
+#endif
   private:
     void open_native_handle();
     void close_native_handle();
