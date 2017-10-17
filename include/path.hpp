@@ -283,9 +283,9 @@ namespace Pathie {
     Path sub_ext(std::string new_extension) const;
 
     /// Platform-independant C fopen().
-    FILE* fopen(const char* mode);
+    FILE* fopen(const char* mode) const;
     /// Update modification and access time to now.
-    void touch();
+    void touch() const;
 
     bool is_absolute() const; ///< Checks if a path is relative.
     bool is_relative() const; ///< Checks if a path is absolute.

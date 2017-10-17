@@ -1793,7 +1793,7 @@ void Path::mktree() const
  *
  * \see [Microsoft’s documentation on `fopen()` and `_wfopen()`](http://msdn.microsoft.com/en-us/library/yeby3zcb.aspx)
  */
-FILE* Path::fopen(const char* mode)
+FILE* Path::fopen(const char* mode) const
 {
 #if defined(_PATHIE_UNIX)
   std::string nstr = native();
@@ -1825,7 +1825,7 @@ FILE* Path::fopen(const char* mode)
  *
  * This is akin to the UNIX `touch` command.
  */
-void Path::touch()
+void Path::touch() const
 {
 #if defined(BSD) // FreeBSD didn’t have futimens() yet as of testing (december 2014)
   FILE* p_file = Path::fopen("a");

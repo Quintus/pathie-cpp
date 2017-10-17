@@ -1,5 +1,7 @@
 -- Version 0.1.0 (unreleased) --
 
+* Add `const' qualifier to Path::fopen() and Path::touch() as these
+  methods leave the path itself unchanged.
 * Add C++98 compatibility (instead of just C++11).
 * Mark stream replacements as experimental. They are mostly untested
   and I don't really use them.
