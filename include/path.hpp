@@ -231,12 +231,10 @@ namespace Pathie {
     static std::vector<Path> config_dirs();
 #endif
 
-    // HIER: Transformieren nach externem Objekt, um die Closure loszuwerden!
-
     /// Shell-like glob.
     static std::vector<Path> glob(const std::string& pattern, int flags = 0);
     /// Traverse directory recursively.
-    //void find(std::function<bool (const Path& entry)> func) const;
+    void find(bool (*cb)(const Path& entry)) const;
 
     /// Return the path as a raw std::string.
     std::string str() const;

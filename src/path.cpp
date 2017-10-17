@@ -1374,8 +1374,11 @@ std::vector<Path> Path::children() const
  * \note This method accesses the file system.
  *
  * Recursively traverse the directory structure below the referenced
- * path. If the callback returns true, the passed directory will
- * also be traversed; if it returns false, it will be skipped.
+ * path. Each entry will be passed to the callback while traversing
+ * from top to bottom. If the entry passed is a directory, you can return
+ * true if you want to traverse that directory down or false if you
+ * don't want to. If the entry passed is not a directory, the
+ * callback's return value is ignored.
  *
  * The callback will never be passed "." and ".." entries. All pathes
  * passed to the callback retain the full prefix, i.e. if you
@@ -1387,28 +1390,29 @@ std::vector<Path> Path::children() const
  *     baz.txt
  * ~~~~~~~~~~~~~~~~
  *
- * Then find() will give you these pathes: `foo`, `foo/bar`, and
- * `foo/bar/baz.txt`, rather than just the sole basename (which
- * you can still obtain by calling basename() on the argument).
+ * Then find() will give you these pathes in this order: `foo`,
+ * `foo/bar`, and `foo/bar/baz.txt`, rather than just the sole
+ * basename (which you can still obtain by calling basename() on the
+ * argument).
  *
- * \param func Callback that takes the currently examined path.
+ * \param cb Callback that takes the currently examined path.
  *
  * \remark Do not assume any order for the pathes you receive,
  * except that you will be given a directory entry before you
  * are given its child entries.
  */
-/*void Path::find(std::function<bool (const Path& entry)> func) const
+void Path::find(bool (*cb)(const Path& entry)) const
 {
-  each_entry([&](const std::string& entry2){
+  for(entry_iterator iter=begin_entries(); iter != end_entries(); iter++) {
     // Skip . and ..
-    if (entry2 != "." && entry2 != "..") {
-      Path path = join(entry2);
-      if (func(path) && path.is_directory()) {
-        path.find(func);
+    if (iter->str() != "." && iter->str() != "..") {
+      Path path = join(*iter);
+      if (cb(path) && path.is_directory()) {
+        path.find(cb);
       }
     }
-  });
-  }*/
+  }
+}
 
 ///@}
 
