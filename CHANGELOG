@@ -1,5 +1,6 @@
 -- Version 0.1.0 (unreleased) --
 
+* Add Pathie::Tempdir class for creating temporary directories.
 * Add Pathie::entry_iterator, Path::begin_entries(), and
   Path::end_entries(). These allow you to use real C++
   iterators for working with directory entries.

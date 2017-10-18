@@ -32,7 +32,6 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include <functional>
 #include <sys/stat.h>
 
 #include "pathie.hpp"

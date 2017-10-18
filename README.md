@@ -15,7 +15,9 @@ MSYS2 GCC. Any other compiler or system might or might not work. Mac
 OS should work as well, but I cannot test this due to lack of a Mac. I
 gladly accept contributions for any system or compiler.
 
-Pathie compiles as C++98 or later.
+Pathie's source code itself is written conforming to C++98. On UNIX
+systems, it assumes the system supports POSIX.1-2001. On Windows
+systems, the minimum supported Windows version is Windows Vista.
 
 The library
 -----------
@@ -49,22 +51,14 @@ methods. Of course, explicit conversion functions are also provided,
 in case you do need a string in the native encoding or need to
 construct a path from a string in the native encoding.
 
-Usage
------
+General Usage
+-------------
 
 First thing is to include the main header:
 
 ~~~~~~~~~~~~~~~~~~{.cpp}
 #include <pathie/path.hpp>
 ~~~~~~~~~~~~~~~~~~
-
-There are some more headers that you can include if needed. They are:
-
-* `pathie/errors.hpp` - Exception classes used
-* `pathie/pathie_ifstream.hpp` - std::ifstream replacement that accepts
-  Unicode filenames
-* `pathie/pathie_ofstream.hpp` - std::ofstream replacement that accepts
-  Unicode filenames
 
 Now consider the simple task to get all children of a directory, which
 have Unicode filenames. Doing that manually will result in you having
@@ -75,8 +69,7 @@ just do this:
 std::vector<Pathie::Path> children = your_path.children();
 ~~~~~~~~~~~~~~~~~~~
 
-Done. Retrieving the parent directory of your directory is easy as
-hell:
+Done. Retrieving the parent directory of your directory is pretty easy:
 
 ~~~~~~~~~~~~~~~~~~~{.cpp}
 Pathie::Path yourpath("foo/bar/baz");
@@ -111,8 +104,8 @@ configuration directory or the path to the running executable.
 Pathie::Path exepath = Pathie::Path::exe();
 ~~~~~~~~~~~~~~~~~~~~
 
-And best of it? All arguments you pass to Pathie are UTF-8, and
-everything you get back is encoded in UTF-8 as well.
+Pathie assumes that all string arguments passed are in UTF-8 and
+transparently converts to the native filesystem encoding internally.
 
 Still, if you interface directly with the Windows API or other external
 libraries, you might want to retrieve the native representation from a
@@ -134,6 +127,27 @@ filesystem encoding. In most cases, that will be UTF-8, but some
 legacy systems may still use something like ISO-8859-1 in which case
 that will differ. Therefore, only use the `Path` constructor if you
 are constructing from a UTF-8 string!
+
+### Temporary directories
+
+There's a class `Pathie::Tempdir` that you can use if you need to work
+with temporary directories. Constructing instances of this class
+creates a temporary directory, which is removed recursively when the
+instance is destroyed again. Use Tempdir::path() to get access to the
+Path instance pointing to the created directory.
+
+~~~~~~~~~~~~~~~~~~~~{.cpp}
+#include <pathie/tempdir.hpp>
+
+//...
+
+{
+  Pathie::Tempdir tmpdir("foo"); // Pass a fragment to use as part of filename
+  std::cout << "Temporary dir is: " << tmpdir.path() << std::endl;
+}
+// When `tmpdir' is destroyed, the destructor recursively
+// deletes the directory that was created.
+~~~~~~~~~~~~~~~~~~~~
 
 ### Opening a file with a Unicode path name
 

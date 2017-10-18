@@ -71,6 +71,7 @@ if (WIN32)
   add_definitions("-DWINVER=0x0600") # Vista
 elseif(UNIX)
   add_definitions("-D_PATHIE_UNIX=1")
+  add_definitions("-D_POSIX_C_SOURCE=200112L")
 endif()
 
 add_definitions("-DPATHIE_VERSION_MAJOR=${PATHIE_VERSION_MAJOR}")
@@ -96,6 +97,7 @@ list(APPEND pathie_sources
   "src/errors.cpp"
   "src/entry_iterator.cpp"
   "src/path.cpp"
+  "src/tempdir.cpp"
   "src/pathie.cpp")
 
 if (PATHIE_BUILD_STREAM_REPLACEMENTS)
@@ -153,6 +155,7 @@ install(FILES
   "include/errors.hpp"
   "include/entry_iterator.hpp"
   "include/path.hpp"
+  "include/tempdir.hpp"
   "include/pathie.hpp"
   DESTINATION include/pathie)
 
