@@ -128,13 +128,14 @@ legacy systems may still use something like ISO-8859-1 in which case
 that will differ. Therefore, only use the `Path` constructor if you
 are constructing from a UTF-8 string!
 
-### Temporary directories
+### Temporary files and directories
 
-There's a class `Pathie::Tempdir` that you can use if you need to work
-with temporary directories. Constructing instances of this class
-creates a temporary directory, which is removed recursively when the
-instance is destroyed again. Use Tempdir::path() to get access to the
-Path instance pointing to the created directory.
+There are two classes `Pathie::Tempdir` and `Pathie::Tempfile` that
+you can use if you need to work with temporary files or directories,
+respectively. Constructing instances of these classes creates a
+temporary entry, which is removed (recursively in case of directories)
+when the instance is destroyed again. Use TempEntry::path() to get
+access to the Path instance pointing to the created entry.
 
 ~~~~~~~~~~~~~~~~~~~~{.cpp}
 #include <pathie/tempdir.hpp>
@@ -142,6 +143,7 @@ Path instance pointing to the created directory.
 //...
 
 {
+  srand(time(NULL)); // Needs random number generator
   Pathie::Tempdir tmpdir("foo"); // Pass a fragment to use as part of filename
   std::cout << "Temporary dir is: " << tmpdir.path() << std::endl;
 }

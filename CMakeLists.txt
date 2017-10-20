@@ -97,7 +97,7 @@ list(APPEND pathie_sources
   "src/errors.cpp"
   "src/entry_iterator.cpp"
   "src/path.cpp"
-  "src/tempdir.cpp"
+  "src/temp.cpp"
   "src/pathie.cpp")
 
 if (PATHIE_BUILD_STREAM_REPLACEMENTS)
@@ -155,7 +155,7 @@ install(FILES
   "include/errors.hpp"
   "include/entry_iterator.hpp"
   "include/path.hpp"
-  "include/tempdir.hpp"
+  "include/temp.hpp"
   "include/pathie.hpp"
   DESTINATION include/pathie)
 

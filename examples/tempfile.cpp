@@ -28,10 +28,10 @@
  */
 
 /**
- * tempdir -- Create a temporary directory.
+ * tempdir -- Create a temporary file.
  *
  * Compile with:
- *   g++ -std=c++98 -I/path/to/pathie/include -L/path/to/pathie/lib tempdir.cpp -static -lpathie -o tempdir
+ *   g++ -std=c++98 -I/path/to/pathie/include -L/path/to/pathie/lib tempfile.cpp -static -lpathie -o tempfile
  */
 
 #include <ctime>
@@ -40,17 +40,17 @@
 
 int main(int argc, char* argv[])
 {
-  srand(time(NULL)); // Initialise random number generator which is used by Tempdir
+  srand(time(NULL)); // Initialise random number generator which is used by Tempfile
 
   if (argc != 2) {
     std::cout << "USAGE: " << std::endl << "tempdir FRAGMENT" << std::endl;
     return 0;
   }
 
-  Pathie::Tempdir tmpdir(argv[1]);
-  tmpdir.keep(); // Do not delete it
+  Pathie::Tempfile tmpfile(argv[1]);
+  tmpfile.keep(); // Do not delete it
 
-  std::cout << "Created directory is " << tmpdir.path().str() << std::endl;
+  std::cout << "Created file is " << tmpfile.path().str() << std::endl;
 
   return 0;
 }
