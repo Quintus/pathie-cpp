@@ -101,7 +101,8 @@ It also provides you with commonly used pathes like the user’s
 configuration directory or the path to the running executable.
 
 ~~~~~~~~~~~~~~~~~~~~{.cpp}
-Pathie::Path exepath = Pathie::Path::exe();
+Pathie::Path configdir  = Pathie::Path::config_dir();
+Pathie::Path exepath    = Pathie::Path::exe();
 ~~~~~~~~~~~~~~~~~~~~
 
 Pathie assumes that all string arguments passed are in UTF-8 and
@@ -110,7 +111,9 @@ transparently converts to the native filesystem encoding internally.
 Still, if you interface directly with the Windows API or other external
 libraries, you might want to retrieve the native representation from a
 Path or construct a Path from the native representation. Pathie
-doesn’t want to be in your way then:
+doesn’t want to be in your way then. The following example constructs
+from and converts to the native representation on Windows, which is
+UTF-16LE:
 
 ~~~~~~~~~~~~~~~~~~~~{.cpp}
 // Contruct from native
@@ -118,15 +121,14 @@ wchar_t* utf16 = Win32ApiCall();
 Path mypath = Path::from_native(utf16); // also accepts std::wstring
 
 // Retrieve native (Note C++’ish std::wstring rather than
-// raw wchar_t*)
+// raw wchar_t* on Windows)
 std::wstring native_utf16 = mypath.native();
 ~~~~~~~~~~~~~~~~~~~~
 
-On UNIX, these methods work with normal strings in the underlying
-filesystem encoding. In most cases, that will be UTF-8, but some
-legacy systems may still use something like ISO-8859-1 in which case
-that will differ. Therefore, only use the `Path` constructor if you
-are constructing from a UTF-8 string!
+On UNIX, these methods work with normal strings (std::string instead
+of std::wstring) in the underlying filesystem encoding. In most cases,
+that will be UTF-8, but some legacy systems may still use something
+like ISO-8859-1 in which case that will differ.
 
 ### Temporary files and directories
 
@@ -348,4 +350,5 @@ hurt too much, while boost::filesystem is quite a large dependency.
 License
 -------
 
-See the file “LICENSE”.
+Pathie is BSD-licensed; see the file “LICENSE” for the exact license
+conditions.
