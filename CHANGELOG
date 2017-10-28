@@ -1,4 +1,4 @@
--- Version 0.1.0 (unreleased) --
+-- Version 0.1.0 (2017-10-28) --
 
 * Add Pathie::Tempdir and Pathie::Tempfile classes for
   creating temporary directories and files.
