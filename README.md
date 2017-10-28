@@ -19,6 +19,11 @@ Pathie's source code itself is written conforming to C++98. On UNIX
 systems, it assumes the system supports POSIX.1-2001. On Windows
 systems, the minimum supported Windows version is Windows Vista.
 
+Installation
+------------
+
+See INSTALL.md.
+
 The library
 -----------
 
