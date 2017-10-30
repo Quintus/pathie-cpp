@@ -2,7 +2,7 @@ Overview of path-returning methods
 ==================================
 
 This section lists Pathie’s methods for retrieval of system or user
-standard pathes along with possible examples. It might serve as an
+standard paths along with possible examples. It might serve as an
 overview if you don’t want to read the documentation of all those
 methods.
 
@@ -12,14 +12,14 @@ specified whether this path varies on a per-user basis (_User_) or is a fixed sy
 path that is the same for all users (_System_); _Other_ means the path is unrelated
 to User information.
 
-On Windows, several pathes may share the same location. This is because Windows
+On Windows, several paths may share the same location. This is because Windows
 doesn’t have such a detailed filesystem layout structure as UNIX systems have.
 If your application needs to run on Windows also, you should be careful to avoid
 file naming conflicts in those directories.
 
-The global pathes given below for UNIX are those you’ll receive if you called Path::set_global_dir_default()
+The global paths given below for UNIX are those you’ll receive if you called Path::set_global_dir_default()
 with `LOCALPATH_NORMAL` as its argument. You can also use `LOCALPATH_LOCAL` to instruct
-the `global_*_dir()` methods to return the corresponding pathes under the system-local
+the `global_*_dir()` methods to return the corresponding paths under the system-local
 hierarchy (mostly `/usr/local` and `/var/local`) instead.
 
 Method|Standard|Type|Typical UNIX return value|Typical Windows return value

@@ -30,7 +30,7 @@ The library
 The entire world is using UTF-8 as the primary Unicode encoding. The
 entire world? No, a little company from Redmond resists the temptation
 and instead uses UTF-16LE, causing cross-platform handling of Unicode
-pathes to be a nightmare.
+paths to be a nightmare.
 
 One of the main problems the author ran into was compiler-dependant
 code that was not marked as such. Many sites on the Internet claim
@@ -84,7 +84,7 @@ Pathie::Path parent = yourpath.parent();
 But Pathie is much more than just an abstraction of different filepath
 encodings. It is a utility library for pathname manipulation, i.e. it
 allows you to do things like finding the parent directory, expanding
-relative to absolute pathes, decomposing a filename into basename,
+relative to absolute paths, decomposing a filename into basename,
 dirname, and extension, and so on. See the documentation of the
 central Pathie::Path class on what you can do.
 
@@ -102,7 +102,7 @@ Pathie::Path p2("/tmp/bar/foo");
 Pathie::Path p3 = p1.relative(p2); // => ../../foo/bar
 ~~~~~~~~~~~~~~~~~~~
 
-It also provides you with commonly used pathes like the user’s
+It also provides you with commonly used paths like the user’s
 configuration directory or the path to the running executable.
 
 ~~~~~~~~~~~~~~~~~~~~{.cpp}
@@ -178,7 +178,7 @@ need C++ I/O streams, read on.
 
 ### Stream replacements
 
-Pathie mainly provides you with the means to handle pathes, compose,
+Pathie mainly provides you with the means to handle paths, compose,
 and decompose them. There is an experimental feature however that
 provides replacements for C++ file streams that work with instances of
 Pathie::Path instead of strings for opening a file. These replacements
@@ -326,8 +326,8 @@ no. [boost::filesystem](http://www.boost.org/doc/libs/1_56_0/libs/filesystem/doc
 provides many methods pathie provides, but has a major problem with
 Unicode path handling if you are not willing to do the UTF-8/UTF-16
 conversion manually. boost::filesystem always uses UTF-8 to store the
-pathes on UNIX, and, which is the problem, always uses UTF-16LE to
-store the pathes on a Windows system. There is no way to override
+paths on UNIX, and, which is the problem, always uses UTF-16LE to
+store the paths on a Windows system. There is no way to override
 this, although there is a [hidden documentation
 page](http://www.boost.org/doc/libs/1_51_0/libs/locale/doc/html/default_encoding_under_windows.html)
 that claims to solve the problem. I have wasted a great amount of time
@@ -343,7 +343,7 @@ g++ via MinGW with regard to Unicode filenames on Windows as of this
 writing (September 2014).
 
 Apart from that, pathie provides some additional methods, especially
-with regard to finding out where the user’s pathes are. It is modelled
+with regard to finding out where the user’s paths are. It is modelled
 after Ruby’s popular
 [Pathname](http://ruby-doc.org/stdlib-2.1.2/libdoc/pathname/rdoc/Pathname.html#method-i-rmtree)
 class, but it doesn’t entirely duplicate its interface (which wouldn’t

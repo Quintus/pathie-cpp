@@ -49,7 +49,7 @@ namespace Pathie {
 #endif
 
   /**
-   * \brief Main class, describing pathes.
+   * \brief Main class, describing paths.
    *
    * This class represents a single path on the filesystem.
    * The path does not have to exist, but this class provides
@@ -130,9 +130,9 @@ namespace Pathie {
    * * global_appentries_dir()
    *
    * Each of these functions takes an argument that allows you to specify whether
-   * you want the "local" or the "normal" hierarchy’s pathes returned. The argument
+   * you want the "local" or the "normal" hierarchy’s paths returned. The argument
    * however is optional, and you can use the set_global_dir_default() method to
-   * specify what should happen if no argument is specified. By default, pathes of
+   * specify what should happen if no argument is specified. By default, paths of
    * the "local" hierarchy are returned. For example:
    *
    * ~~~~~~~~~~~~~~~~~~~ c++
@@ -156,8 +156,8 @@ namespace Pathie {
     /**
      * Specifies the argument type for the `global_*_dir()` functions.
      * `LOCALPATH_DEFAULT` means fall back to the default set with `set_global_dir_default()`,
-     * `LOCALPATH_NORMAL` means to use the normal FHS pathes, and `LOCALPATH_LOCAL` means to use
-     * the pathes the FHS specifies for local additions.
+     * `LOCALPATH_NORMAL` means to use the normal FHS paths, and `LOCALPATH_LOCAL` means to use
+     * the paths the FHS specifies for local additions.
      */
     enum localpathtype {
       LOCALPATH_DEFAULT = 1,

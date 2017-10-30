@@ -171,7 +171,7 @@ void Path::sanitize()
     }
     else { // Only drive root?
       if (m_path[1] == ':') {
-        // Here m_path must be a drive root. The colon ":" is not allowed in pathes on Windows except as the 2nd char to denote the drive letter
+        // Here m_path must be a drive root. The colon ":" is not allowed in paths on Windows except as the 2nd char to denote the drive letter
         if (len == 2) { // Whoa -- "X:" misses leading / for drive root, append it
           m_path.append("/");
         }
@@ -433,7 +433,7 @@ Path Path::root() const
  * an absolute path, which is considered a component on its own
  * and is thus the first element of a bursted absolute path.
  *
- * \param descend (`false`) If this is true, keeps the parent pathes when bursting.
+ * \param descend (`false`) If this is true, keeps the parent paths when bursting.
  *
  * \returns A vector of Path instances, where each instance
  * corresponds to one component of the Path.
@@ -493,7 +493,7 @@ std::vector<Path> Path::burst(bool descend /* = false */) const
 
 /** \name Path expansion
  *
- * Expand pathes to a more fuller version without shortcuts.
+ * Expand paths to a more fuller version without shortcuts.
  */
 
 ///@{
@@ -527,7 +527,7 @@ Path Path::prune() const
   while((pos = newpath.find("/.", pos)) != string::npos) { // assignment intended
     if (newpath.substr(pos, 3) == "/..") {
 
-      // Weird path like /..foo or foo/..bar, which are NOT relative pathes
+      // Weird path like /..foo or foo/..bar, which are NOT relative paths
       if (newpath.length() > pos + 3 && newpath[pos + 3] != '/') {
         // Do not reset `pos' -- this has to stay. Advance to the next char.
         pos++;
@@ -544,7 +544,7 @@ Path Path::prune() const
         }
       }
 #ifdef _WIN32
-      // Cater for pathes with drive X:/ on Windows
+      // Cater for paths with drive X:/ on Windows
       else if (pos == 2 && newpath[1] == ':') { // ":" is on Windows only allowed at pos 1, where it signifies the preceding char is a drive letter
         // X:/. or X:/.. at beginning of string
         if(newpath.length() > 4 && newpath[4] == '.') { // X:/..
@@ -581,7 +581,7 @@ Path Path::prune() const
     }
     else { // Single /.
 
-      // Weird path like /..foo or foo/..bar, which are NOT relative pathes
+      // Weird path like /..foo or foo/..bar, which are NOT relative paths
       if (newpath.length() > pos + 2 && newpath[pos + 2] != '/') {
         // Do not reset `pos' -- this has to stay. Advance to the next char.
         pos++;
@@ -971,7 +971,7 @@ Path Path::home()
 
 /** \name Handling of absolute and relative paths
  *
- * Converting relative pathes to absolute ones and vice-versa.
+ * Converting relative paths to absolute ones and vice-versa.
  */
 ///@{
 
@@ -1380,7 +1380,7 @@ std::vector<Path> Path::children() const
  * don't want to. If the entry passed is not a directory, the
  * callback's return value is ignored.
  *
- * The callback will never be passed "." and ".." entries. All pathes
+ * The callback will never be passed "." and ".." entries. All paths
  * passed to the callback retain the full prefix, i.e. if you
  * have this structure:
  *
@@ -1390,14 +1390,14 @@ std::vector<Path> Path::children() const
  *     baz.txt
  * ~~~~~~~~~~~~~~~~
  *
- * Then find() will give you these pathes in this order: `foo`,
+ * Then find() will give you these paths in this order: `foo`,
  * `foo/bar`, and `foo/bar/baz.txt`, rather than just the sole
  * basename (which you can still obtain by calling basename() on the
  * argument).
  *
  * \param cb Callback that takes the currently examined path.
  *
- * \remark Do not assume any order for the pathes you receive,
+ * \remark Do not assume any order for the paths you receive,
  * except that you will be given a directory entry before you
  * are given its child entries.
  */
@@ -2034,7 +2034,7 @@ Path& Path::operator=(const std::string& str)
 }
 
 /**
- * Compares two Path instances. Two pathes are considered equal
+ * Compares two Path instances. Two paths are considered equal
  * if their underlying path std::strings are equal.
  */
 bool Path::operator==(const Path& other) const
@@ -2043,7 +2043,7 @@ bool Path::operator==(const Path& other) const
 }
 
 /**
- * Compares two Path instances. Two pathes are considered inequal
+ * Compares two Path instances. Two paths are considered inequal
  * if their underlying path std::strings are inequal.
  */
 bool Path::operator!=(const Path& other) const
@@ -2459,7 +2459,7 @@ Path Path::cache_dir()
 Path Path::runtime_dir()
 {
 #if defined(_PATHIE_UNIX)
-  std::string nstr = utf8_to_filename("XDG_RUNTIME_DIR"); // environment is encoded the same as pathes
+  std::string nstr = utf8_to_filename("XDG_RUNTIME_DIR"); // environment is encoded the same as paths
   char* env_value = getenv(nstr.c_str());
   if (env_value)
     return Path(filename_to_utf8(env_value));
@@ -2497,7 +2497,7 @@ Path Path::runtime_dir()
 Path Path::temp_dir()
 {
 #if defined(_PATHIE_UNIX)
-  std::string nstr = utf8_to_filename("TMPDIR"); // environment is encoded the same as pathes
+  std::string nstr = utf8_to_filename("TMPDIR"); // environment is encoded the same as paths
   char* env_value = NULL;
 
   if ((env_value = getenv(nstr.c_str()))) // Single = intended

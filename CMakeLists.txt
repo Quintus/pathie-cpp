@@ -51,7 +51,7 @@ endif()
 # Flags & Options
 
 option(PATHIE_BUILD_STREAM_REPLACEMENTS "Build the std::ifstream and std::ofstream replacements (experimental)." OFF)
-option(PATHIE_ASSUME_UTF8_ON_UNIX "Assume file pathes under UNIX to be always encoded in UTF-8." OFF)
+option(PATHIE_ASSUME_UTF8_ON_UNIX "Assume file paths under UNIX to be always encoded in UTF-8." OFF)
 
 ########################################
 # Extra flags
