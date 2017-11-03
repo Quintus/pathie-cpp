@@ -84,7 +84,7 @@ end
 task :test => [:build, :testfiles] do
   unless File.file?("testsettings.conf")
     puts "testsettings.conf is missing. Generate one with $ rake testsettings"
-    puts "and adapt it to the local pathes."
+    puts "and adapt it to the local paths."
     raise "testsettings.conf missing"
   end
 
@@ -105,9 +105,9 @@ task :testsettings do
   File.open("testsettings.conf", "w") do |file|
     file.puts "# -*- coding: utf-8 -*-"
     file.puts "# testsettings.conf"
-    file.puts "# This file defines the pathes Pathie should be able to figure"
+    file.puts "# This file defines the paths Pathie should be able to figure"
     file.puts "# out on your system. Without relying on its own methods, this"
-    file.puts "# isn't possible, so information about these pathes is required"
+    file.puts "# isn't possible, so information about these paths is required"
     file.puts "# from an external source. This allows to test whether the path"
     file.puts "# finding methods work as expected and retrieve the correct"
     file.puts "# directories. Always use forward slashes / as the path separator,"

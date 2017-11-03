@@ -59,7 +59,7 @@ namespace Pathie {
    * \brief Output stream for UTF-8-encoded filenames.
    *
    * Unicode filenames with C++ are horrible, and this is why the Pathie library
-   * was written in the first sense. However, working with pathes may be nice,
+   * was written in the first sense. However, working with paths may be nice,
    * but what does this mean for you if you cannot actually open the file
    * whose path you have been manipulating? On UNIX, the `std::ofstream` class
    * will work just as expected if you pass it a UTF-8 unicode filename and it

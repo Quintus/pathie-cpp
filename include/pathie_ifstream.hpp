@@ -58,7 +58,7 @@ namespace Pathie {
    * \brief Input stream for UTF-8-encoded filenames.
    *
    * This class implements an interface like `std::ifstream` that works
-   * with Unicode pathes regardless of the platform. Please refer to
+   * with Unicode paths regardless of the platform. Please refer to
    * the documentation of Pathie::ofstream for more information on
    * rationale and usage; this class works the same way as Pathie::ofstream,
    * just for input rather than output file streams.
