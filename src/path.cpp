@@ -1551,7 +1551,7 @@ bool Path::is_directory() const
 /**
  * \note This method accesses the filesystem.
  *
- * Checks if this is a directory. Returns false
+ * Checks if this is a file. Returns false
  * if the referenced path does not exist rather
  * than erroring out.
  */
