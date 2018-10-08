@@ -29,6 +29,8 @@
 
 #include "../include/pathie_ifstream.hpp"
 
+#include <cstdlib>
+
 namespace Pathie {
 #if defined(_PATHIE_UNIX)
   // All well and easy under UNIX. Just delegate to standard constructor.
