@@ -231,7 +231,9 @@ namespace Pathie {
   {
     std::wstring w_filename = Pathie::utf8_to_utf16(filename);
 
-    mp_file = _wfopen(w_filename.c_str(), L"a"); // Mode will be overridden
+    mp_file = _wfopen(w_filename.c_str(),
+      (mode & ios_base::trunc) ? L"w" : L"a");
+
     if (!mp_file) {
       setstate(ios_base::failbit);
       return;
