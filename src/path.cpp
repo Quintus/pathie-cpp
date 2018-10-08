@@ -728,7 +728,8 @@ Path Path::real() const
   // BUild a new path from the now resolved components
   Path result(components.front());
   if (components.size() > 1) {
-    for(auto iter=components.begin(); iter != components.end(); iter++) {
+    for(std::vector<Path>::const_iterator iter=components.begin();
+    		iter != components.end(); iter++) {
       result = result.join(*iter);
     }
   }
