@@ -50,6 +50,15 @@
 #include <shlobj.h>
 #include <shlwapi.h>
 //#include <ntifs.h> // Currently not in msys2
+#ifndef F_OK
+#define F_OK 0
+#endif
+#ifndef W_OK
+#define W_OK 2
+#endif
+#ifndef R_OK
+#define R_OK 4
+#endif
 
 #elif defined(_PATHIE_UNIX)
 #include <unistd.h>
