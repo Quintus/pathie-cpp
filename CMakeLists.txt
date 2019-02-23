@@ -117,10 +117,16 @@ file(GLOB_RECURSE test_sources
 
 # Libraries
 add_library(pathie STATIC ${pathie_sources})
+if(APPLE)
+  target_link_libraries(pathie iconv)
+endif()
 
 if (CMAKE_BUILD_SHARED_LIBS)
   add_library(pathie-dynamic SHARED ${pathie_sources})
   set_target_properties(pathie-dynamic PROPERTIES OUTPUT_NAME pathie)
+  if(APPLE)
+    target_link_libraries(pathie-dynamic iconv)
+  endif()
 endif()
 
 if(WIN32)
