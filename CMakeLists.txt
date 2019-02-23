@@ -69,6 +69,9 @@ if (WIN32)
   add_definitions("-D_WIN32_WINNT=0x0600") # Vista
   add_definitions("-D_WIN32_IE=0x0800") # IE 8.0+
   add_definitions("-DWINVER=0x0600") # Vista
+elseif(APPLE)
+  add_definitions("-D_DARWIN_C_SOURCE")
+  add_definitions("-D_PATHIE_UNIX=1")
 elseif(UNIX)
   add_definitions("-D_PATHIE_UNIX=1")
   add_definitions("-D_POSIX_C_SOURCE=200112L")
