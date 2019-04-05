@@ -39,15 +39,6 @@
 
 namespace Pathie {
 
-  // Forward-declare, defined in pathie.cpp.
-#if defined(_WIN32)
-  std::string utf16_to_utf8(std::wstring);
-  std::wstring utf8_to_utf16(std::string);
-#elif defined(_PATHIE_UNIX)
-  std::string utf8_to_filename(const std::string& utf8);
-  std::string filename_to_utf8(const std::string& native_filename);
-#endif
-
   /**
    * \brief Main class, describing paths.
    *
