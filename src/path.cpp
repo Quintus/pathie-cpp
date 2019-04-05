@@ -3176,14 +3176,14 @@ std::vector<Path> Path::glob(const std::string& pattern, int flags /* = 0 */)
     return std::vector<Path>(); // Empty vector
   }
   else if (result == 0) {
-    std::vector<Path> result;
+    std::vector<Path> paths;
 
     for(size_t i=0; i < globinfo.gl_pathc; i++) {
-      result.push_back(Path(filename_to_utf8(globinfo.gl_pathv[i])));
+      paths.push_back(Path(filename_to_utf8(globinfo.gl_pathv[i])));
     }
 
     globfree(&globinfo);
-    return result;
+    return paths;
   }
   else {
     throw(GlobError(result));
