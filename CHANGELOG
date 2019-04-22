@@ -1,3 +1,23 @@
+-- Version 0.1.1 (TBD) --
+
+* Add experimental MacOS support
+  - PR #11 by XapaJIaMnu
+* Fix entry_operator++ being recursive
+  - Ticket #15 by oktonion
+* Fix some compiler warnings
+  - PR #13 by TryExceptElse
+* Fix compilation on MSVC failing due to missing F_OK macro
+  - PR #9 by aarcangeli
+* Fix mode loss problem on MinGW
+  - PR #8 by Bihlerben
+* Fix MinGW compilation error due to undeclared identifiers
+  - PR #6 by Bihlerben
+* Fix compilation error with entry_iterator.cpp on UNIX
+  - PR #4 by progsource
+* Improve documentation
+  - PR #1 by jibsen
+  - PR #3 by progsource
+
 -- Version 0.1.0 (2017-10-28) --
 
 * Add Pathie::Tempdir and Pathie::Tempfile classes for
