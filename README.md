@@ -307,7 +307,7 @@ UTF-8 is used as the filesystem encoding under any UNIX-based system.
 Links
 -----
 
-* Project page: https://www.guelkerdev.de/projects/pathie/
+* Project page: https://mg.guelker.eu/projects/pathie/
 * GitHub mirror: https://github.com/Quintus/pathie-cpp
 * Issue tracker: https://github.com/Quintus/pathie-cpp/issues
 
