@@ -109,11 +109,21 @@ Path::Path(const Path& path)
 }
 
 /**
- * This constructs a path from a given std::string.
+ * This constructs a path from a given std::string. The path is
+ * automatically sanitized, i.e. backslashes are replaced with forward
+ * slashes (Windows perfectly well handles path separation with
+ * forward slashes), double slashes are replaced with a single slash,
+ * and a trailing slash (if exists) is removed.
  *
  * \param path String to construct from. Must be encoded in UTF-8.
  *
  * \returns a new instance of class Path.
+ *
+ * \remark On Windows, UNC paths (paths starting with a double leading
+ * forward or backward slash) are allowed. The constructor is not
+ * going to strip the double slash away. On UNIX, leading double
+ * slashes (forward and backward) are sanitised into a single leading
+ * (forward) slash.
  */
 Path::Path(std::string path)
 {
@@ -159,15 +169,22 @@ Path::Path(const std::vector<Path>& components)
  */
 void Path::sanitize()
 {
+#ifdef _WIN32
+  bool is_unc = m_path.length() > 2 && (m_path.substr(0, 2) == "\\\\" || m_path.substr(0, 2) == "//");
+#else
+  bool is_unc = false;
+#endif
+
   // Replace any backslashes \ with forward slashes /.
   size_t cur = string::npos;
   while ((cur = m_path.find("\\")) != string::npos) { // assignment intended
     m_path.replace(cur, 1, "/");
   }
 
-  // Replace all double slashes // with a single one
+  // Replace all double slashes // with a single one,
+  // except for UNC pathes on Windows.
   cur = string::npos;
-  while ((cur = m_path.find("//")) != string::npos) { // assignment intended
+  while ((cur = m_path.find("//", is_unc ? 1 : 0)) != string::npos) { // assignment intended
     m_path.replace(cur, 2, "/");
   }
 

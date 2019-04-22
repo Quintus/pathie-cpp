@@ -847,6 +847,24 @@ void test_prefix_increment_segfault()
   std::cout << OK << std::endl;
 }
 
+// https://github.com/Quintus/pathie-cpp/issues/14
+void test_unc_path_sanitize()
+{
+// UNC pathes are only valid on Windows.
+#ifdef _WIN32
+  Path p1("\\\\WORKGROUP\\unc\\path");
+  Path p2("//WORKGROUP/unc/path");
+  Path p3("\\\\WORKGROUP/unc\\path/");
+  Path p4("\\WORKGROUP/no/unc/path");
+
+  // Path::sanitize() is called from the Path(std::string) constructor.
+  EQUAL("//WORKGROUP/unc/path", p1.str());
+  EQUAL("//WORKGROUP/unc/path", p2.str());
+  EQUAL("//WORKGROUP/unc/path", p3.str());
+  EQUAL("/WORKGROUP/no/unc/path", p4.str());
+#endif
+}
+
 int main(int argc, char* argv[])
 {
 #ifndef _WIN32
@@ -884,6 +902,7 @@ int main(int argc, char* argv[])
   test_sub_ext();
   test_symbolic_links();
   test_prefix_increment_segfault();
+  test_unc_path_sanitize();
 
   return 0;
 }

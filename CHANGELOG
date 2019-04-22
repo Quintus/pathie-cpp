@@ -2,6 +2,9 @@
 
 * Add experimental MacOS support
   - PR #11 by XapaJIaMnu
+* Fix Path() constructor falsely "sanitising" Windows UNC (network)
+  paths by replacing the leading double backslash.
+  - Ticket #14 by frankseide
 * Fix entry_operator++ being recursive
   - Ticket #15 by oktonion
 * Fix some compiler warnings
