@@ -318,6 +318,25 @@ Feel free to submit any contributions you deem useful. Try to make
 separate branches for your new features, give a description on what
 you changed, etc.
 
+How to run the tests?
+---------------------
+
+1. Wipe any previous build
+2. Create a directory build in the project root: `mkdir build`
+   (the directoy has to be named `build/`, the tests need that)
+3. Configure Pathie with the experimental stream replacements set
+   to ON (otherwise the tests will fail to link): `cd build && cmake -DCMAKE_BUILD_TYPE=Debug -DPATHIE_BUILD_STREAM_REPLACEMENTS=ON ..`
+4. Build Pathie: `make`
+5. Switch to the test directory: `cd ../test`
+6. Create a testsettings configuration: `rake testsettings`
+7. Edit the generated testsettings.conf file to reflect the
+   directories that Pathie needs to figure out correctly.
+8. Execute `rake`
+
+The tests use `LD_LIBRARY_PATH` to prepend the `../build` directory to
+the load path, so if your system does not support `LD_LIBARY_PATH`
+(all Linuxes at least do that), you're out of luck.
+
 Don’t you duplicate boost::filesystem?
 -------------------------------------
 
