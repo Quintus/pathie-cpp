@@ -69,6 +69,9 @@ if (WIN32)
   add_definitions("-D_WIN32_WINNT=0x0600") # Vista
   add_definitions("-D_WIN32_IE=0x0800") # IE 8.0+
   add_definitions("-DWINVER=0x0600") # Vista
+elseif(APPLE)
+  add_definitions("-D_DARWIN_C_SOURCE")
+  add_definitions("-D_PATHIE_UNIX=1")
 elseif(UNIX)
   add_definitions("-D_PATHIE_UNIX=1")
   add_definitions("-D_POSIX_C_SOURCE=200112L")
@@ -114,10 +117,16 @@ file(GLOB_RECURSE test_sources
 
 # Libraries
 add_library(pathie STATIC ${pathie_sources})
+if(APPLE)
+  target_link_libraries(pathie iconv)
+endif()
 
 if (CMAKE_BUILD_SHARED_LIBS)
   add_library(pathie-dynamic SHARED ${pathie_sources})
   set_target_properties(pathie-dynamic PROPERTIES OUTPUT_NAME pathie)
+  if(APPLE)
+    target_link_libraries(pathie-dynamic iconv)
+  endif()
 endif()
 
 if(WIN32)

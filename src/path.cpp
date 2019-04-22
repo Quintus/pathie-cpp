@@ -50,6 +50,15 @@
 #include <shlobj.h>
 #include <shlwapi.h>
 //#include <ntifs.h> // Currently not in msys2
+#ifndef F_OK
+#define F_OK 0
+#endif
+#ifndef W_OK
+#define W_OK 2
+#endif
+#ifndef R_OK
+#define R_OK 4
+#endif
 
 #elif defined(_PATHIE_UNIX)
 #include <unistd.h>
@@ -68,6 +77,10 @@
 #ifdef BSD
 #include <sys/time.h>
 #include <sys/sysctl.h>
+#endif
+
+#ifdef __APPLE__
+#include <mach-o/dyld.h>
 #endif
 
 using namespace Pathie;
@@ -904,6 +917,16 @@ Path Path::exe()
     throw(Pathie::ErrnoError(errno));
 
   return Path(filename_to_utf8(std::string(buf, size)));
+#elif defined(__APPLE__)
+  char buf[PATH_MAX];
+  uint32_t size = sizeof(buf);
+
+  if (_NSGetExecutablePath(buf, &size) == 0)
+    // Might contain symlinks or extra slashes. Shouldn't be an issue though
+    // https://stackoverflow.com/questions/799679/programmatically-retrieving-the-absolute-path-of-an-os-x-command-line-app/1024933#1024933
+    return Path(filename_to_utf8(std::string(buf, size)));
+  else
+    throw(Pathie::ErrnoError(errno));
 #elif defined(BSD)
   // BSD does not have /proc mounted by default. However, using raw syscalls,
   // we can figure out what would have been in /proc/curproc/file. See
