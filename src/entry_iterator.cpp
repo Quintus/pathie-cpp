@@ -133,7 +133,7 @@ void entry_iterator::close_native_handle()
 }
 
 /**
- * Increment operator. Calling this advances the iterator by one,
+ * Postfix increment operator. Calling this advances the iterator by one,
  * thus pointing it to the next entry. If the end is reached,
  * the iterator will compare equal to the return value of the
  * default constructor, and dereferencing it yields an undefined
@@ -175,7 +175,7 @@ entry_iterator& entry_iterator::operator++(int)
   return *this;
 }
 
-/// Same as the other operator++().
+/// Prefix increment. Does the same as the postfix increment operator++().
 entry_iterator& entry_iterator::operator++()
 {
   return (operator++(0));

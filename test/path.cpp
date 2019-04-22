@@ -836,6 +836,17 @@ void test_symbolic_links()
   p2.parent().rmtree();
 }
 
+// https://github.com/Quintus/pathie-cpp/issues/15
+void test_prefix_increment_segfault()
+{
+  Path p1("/tmp");
+  entry_iterator iter = p1.begin_entries();
+
+  std::cout << "Expecting prefix increment to not give a segmentation fault due to endless recursion... ";
+  ++iter;
+  std::cout << OK << std::endl;
+}
+
 int main(int argc, char* argv[])
 {
 #ifndef _WIN32
@@ -872,6 +883,7 @@ int main(int argc, char* argv[])
   test_parent();
   test_sub_ext();
   test_symbolic_links();
+  test_prefix_increment_segfault();
 
   return 0;
 }
