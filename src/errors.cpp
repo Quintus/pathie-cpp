@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "../include/errors.hpp"
+#include "../include/pathie/errors.hpp"
 
 #include <cerrno>
 #include <cstring>

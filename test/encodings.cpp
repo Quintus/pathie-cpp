@@ -30,7 +30,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <locale>
-#include "../include/pathie.hpp"
+#include "../include/pathie/pathie.hpp"
 #include "testhelpers.hpp"
 
 using namespace Pathie;

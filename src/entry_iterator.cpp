@@ -27,9 +27,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "../include/entry_iterator.hpp"
-#include "../include/path.hpp"
-#include "../include/errors.hpp"
+#include "../include/pathie/entry_iterator.hpp"
+#include "../include/pathie/path.hpp"
+#include "../include/pathie/errors.hpp"
 
 #if defined(__unix__)
 #include <sys/types.h>
