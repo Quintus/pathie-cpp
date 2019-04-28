@@ -153,7 +153,7 @@ endif()
 
 install(FILES
   "include/pathie/errors.hpp"
-  "include/pathie/entry_iter`ator.hpp"
+  "include/pathie/entry_iterator.hpp"
   "include/pathie/path.hpp"
   "include/pathie/temp.hpp"
   "include/pathie/pathie.hpp"
