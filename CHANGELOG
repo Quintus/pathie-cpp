@@ -1,5 +1,21 @@
 -- Version 0.1.1 (TBD) --
 
+* Use proper file layout for the headers in the Git repository.
+  - Ticket #2 by Quintus
+  - PR #16 by TryExceptElse
+  - This change does not affect programmes written against the
+    stable release of Pathie. It only affects programmes that
+    use Pathie from the Git repository, because the release
+    tarballs have always been packaged in such a way that the
+    headers reside under a separate pathie/ directory. These
+    programmes need to be updated to the new include path.
+* Deprecate direct use of headers under include/
+  - PR #16 by TryExceptElse
+  - Note: Programmes written against direct use of the include/
+    directory continue to work for now. Shallow "glue" headers
+    have been added to include the real headers. These deprecated
+    headers however are going to be removed with the next minor
+    release.
 * Add experimental MacOS support
   - PR #11 by XapaJIaMnu
 * Fix Path() constructor falsely "sanitising" Windows UNC (network)
