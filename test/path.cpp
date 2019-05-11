@@ -32,8 +32,8 @@
 #include <locale>
 #include <map>
 #include <fstream>
-#include "../include/path.hpp"
-#include "../include/errors.hpp"
+#include "../include/pathie/path.hpp"
+#include "../include/pathie/errors.hpp"
 #include "testhelpers.hpp"
 
 #if defined(_PATHIE_UNIX)

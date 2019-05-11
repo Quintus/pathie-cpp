@@ -27,37 +27,41 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <cstdlib>
-#include <cstring>
-#include <locale>
-#include "../include/pathie/pathie.hpp"
-#include "testhelpers.hpp"
-
-using namespace Pathie;
-
-void test_transcode()
-{
-  std::string utf8str     = "\x42\xc3\xa4\x72\x20\x4d\xc3\xb6\x68\x72\x65\x20\x53\x6f\xc3\x9f\x65"; // UTF-8: Bär Möhre Soße
-  std::string iso88591str = "\x42\xe4\x72\x20\x4d\xf6\x68\x72\x65\x20\x53\x6f\xdf\x65"; // ISO-8859-1: Bär Möhre Soße
-
-  std::string result1 = convert_encodings("ISO-8859-1", "UTF-8", iso88591str);
-  EQUAL(utf8str, result1);
-
-  std::string result2 = convert_encodings("UTF-8", "ISO-8859-1", utf8str);
-  EQUAL(iso88591str, result2);
-
-  // No way to specify what iconv() shall do with characters that are
-  // not available in the target encoding. POSIX.1-2008 just says the
-  // iconv() function "shall perform an implementation-defined
-  // conversion on this character." So, what to test here?
-
-  // const char* unicodestr = "\xe2\x9c\x93"; // UTF-8: ✓
-}
-
-int main(int argc, char* argv[])
-{
-#ifndef _WIN32
-  std::locale::global(std::locale(""));
+#ifndef PATHIE_PATHIE_HPP
+#define PATHIE_PATHIE_HPP
+#if __cplusplus < 199711L
+#error Pathie requires C++98 support. Please use an option such as -std=c++98 to enable it.
 #endif
-  test_transcode();
+
+#if !defined(_PATHIE_UNIX) && (defined(unix) || defined(__unix__) || defined(__unix) || defined(__APPLE__) || defined(BSD))
+#define _PATHIE_UNIX
+#endif
+
+#include <string>
+
+/// Namespace for this library.
+namespace Pathie {
+
+  /// Returns the version number is MAJOR.MINOR.TINY.
+  std::string version();
+
+  /**
+   * Returns the Git commit this was build from.
+   * Empty string if build without Git.
+   */
+  std::string gitrevision();
+
+#ifdef _WIN32
+  std::string utf16_to_utf8(std::wstring);
+  std::wstring utf8_to_utf16(std::string);
+#endif
+
+#ifdef _PATHIE_UNIX
+  std::string utf8_to_filename(const std::string& utf8);
+  std::string filename_to_utf8(const std::string& native_filename);
+  std::string convert_encodings(const char* from_encoding, const char* to_encoding, const std::string& string);
+#endif
+
 }
+
+#endif

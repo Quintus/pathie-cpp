@@ -161,17 +161,17 @@ if (CMAKE_BUILD_SHARED_LIBS)
 endif()
 
 install(FILES
-  "include/errors.hpp"
-  "include/entry_iterator.hpp"
-  "include/path.hpp"
-  "include/temp.hpp"
-  "include/pathie.hpp"
+  "include/pathie/errors.hpp"
+  "include/pathie/entry_iterator.hpp"
+  "include/pathie/path.hpp"
+  "include/pathie/temp.hpp"
+  "include/pathie/pathie.hpp"
   DESTINATION include/pathie)
 
 if (PATHIE_BUILD_STREAM_REPLACEMENTS)
   install(FILES
-    "include/pathie_ifstream.hpp"
-    "include/pathie_ofstream.hpp"
+    "include/pathie/pathie_ifstream.hpp"
+    "include/pathie/pathie_ofstream.hpp"
     DESTINATION include/pathie)
 endif()
 

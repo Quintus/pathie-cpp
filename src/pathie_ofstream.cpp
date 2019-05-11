@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "../include/pathie_ofstream.hpp"
+#include "../include/pathie/pathie_ofstream.hpp"
 
 #if defined(_WIN32) && defined(__GNUC__)
 #include <cstdio>

@@ -27,8 +27,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "../include/pathie.hpp"
-#include "../include/errors.hpp"
+#include "../include/pathie/pathie.hpp"
+#include "../include/pathie/errors.hpp"
 
 #if defined(_WIN32)
 #include <windows.h>
