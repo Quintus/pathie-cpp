@@ -442,14 +442,15 @@ void test_stat()
 #if defined(_PATHIE_UNIX)
   EQUAL(37, p1.size());
   struct stat* p_s = p1.stat();
+  EQUAL(37, p_s->st_size);
 #elif defined(_WIN32)
   EQUAL(39, p1.size()); // Windows newlines
   struct _stat* p_s = p1.stat();
+  EQUAL(39, p_s->st_size);
 #else
 #error Unsupported system.
 #endif
 
-  EQUAL(37, p_s->st_size);
   free(p_s);
 
   assert_exception(new Pathie::ErrnoError(1), __FILE__, __LINE__, []()
@@ -839,7 +840,13 @@ void test_symbolic_links()
 // https://github.com/Quintus/pathie-cpp/issues/15
 void test_prefix_increment_segfault()
 {
+#if defined(_WIN32)
+  Path p1("C:/");
+#elif defined(_PATHIE_UNIX)
   Path p1("/tmp");
+#else
+#error unsupported system
+#endif
   entry_iterator iter = p1.begin_entries();
 
   std::cout << "Expecting prefix increment to not give a segmentation fault due to endless recursion... ";

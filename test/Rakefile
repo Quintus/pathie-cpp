@@ -61,8 +61,8 @@ task :build => SOURCES do
   if ENV["CROSSTEST"]
     cp "../crossbuild/libpathie.dll", "."
   elsif RUBY_PLATFORM =~ /mingw|mswin/
-    cp "C:/msys32/mingw32/bin/libgcc_s_dw2-1.dll", "."
-    cp "C:/msys32/mingw32/bin/libstdc++-6.dll", "."
+    cp "C:/msys64/mingw64/bin/libgcc_s_seh-1.dll", "."
+    cp "C:/msys64/mingw64/bin/libstdc++-6.dll", "."
     cp "../build/libpathie.dll", "."
   end
 end
