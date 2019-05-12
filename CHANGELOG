@@ -1,4 +1,4 @@
--- Version 0.1.1 (TBD) --
+-- Version 0.1.1 (2019-05-12) --
 
 * Add missing implementation of Pathie::version().
 * Use proper file layout for the headers in the Git repository.
