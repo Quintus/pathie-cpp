@@ -2951,6 +2951,8 @@ Path Path::global_appentries_dir(localpathtype local)
   else
     return Path("/usr/share/applications");
 #elif defined(_WIN32)
+  _PATHIE_UNUSED(local);
+
   wchar_t dir[MAX_PATH];
   HRESULT result = SHGetFolderPathW(NULL, CSIDL_COMMON_STARTMENU, NULL, SHGFP_TYPE_CURRENT, dir);
   if (result != S_OK)
@@ -2983,6 +2985,8 @@ Path Path::global_immutable_data_dir(localpathtype local)
   else
     return Path("/usr/share");
 #elif defined(_WIN32)
+  _PATHIE_UNUSED(local);
+
   wchar_t dir[MAX_PATH];
   HRESULT result = SHGetFolderPathW(NULL, CSIDL_SYSTEM, NULL, SHGFP_TYPE_CURRENT, dir);
   if (result != S_OK)
@@ -3015,6 +3019,8 @@ Path Path::global_mutable_data_dir(localpathtype local)
   else
     return Path("/var/lib");
 #elif defined (_WIN32)
+  _PATHIE_UNUSED(local);
+
   wchar_t dir[MAX_PATH];
   HRESULT result = SHGetFolderPathW(NULL, CSIDL_COMMON_APPDATA, NULL, SHGFP_TYPE_CURRENT, dir);
   if (result != S_OK)
@@ -3049,6 +3055,7 @@ Path Path::global_cache_dir(localpathtype local)
   else
     return Path("/var/cache");
 #elif defined(_WIN32)
+  _PATHIE_UNUSED(local);
   return global_mutable_data_dir();
 #else
 #error Unsupported system.
@@ -3081,6 +3088,7 @@ Path Path::global_runtime_dir(localpathtype local)
   else
     return Path("/var/run");
 #elif defined(_WIN32)
+  _PATHIE_UNUSED(local);
   return Path("C:/Temp");
 #else
 #error Unsupported system.
@@ -3109,6 +3117,8 @@ Path Path::global_config_dir(localpathtype local)
     return Path("/etc");
 
 #elif defined(_WIN32)
+  _PATHIE_UNUSED(local);
+
   wchar_t dir[MAX_PATH];
   HRESULT result = SHGetFolderPathW(NULL, CSIDL_SYSTEM, NULL, SHGFP_TYPE_CURRENT, dir);
   if (result != S_OK)
@@ -3220,6 +3230,8 @@ std::vector<Path> Path::glob(const std::string& pattern, int flags /* = 0 */)
     throw(GlobError(result));
   }
 #elif defined(_WIN32)
+  _PATHIE_UNUSED(flags);
+
   std::vector<Path> results;
   std::wstring utf16_pattern = utf8_to_utf16(pattern);
 
@@ -3310,6 +3322,7 @@ bool Path::fnmatch(const std::string& pattern, int flags /* = 0 */) const
   std::string pattern_nstr = utf8_to_filename(pattern);
   return ::fnmatch(pattern_nstr.c_str(), nstr.c_str(), flags) == 0;
 #elif defined(_WIN32)
+  _PATHIE_UNUSED(flags);
   std::wstring utf16path = utf8_to_utf16(m_path);
   std::wstring utf16pattern = utf8_to_utf16(pattern);
   return PathMatchSpecW(utf16path.c_str(), utf16pattern.c_str());

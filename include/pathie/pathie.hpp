@@ -37,6 +37,10 @@
 #define _PATHIE_UNIX
 #endif
 
+// Mark a parameter as unused so the compiler does not complain
+// (useful for ifdefs)
+#define _PATHIE_UNUSED(x) (void)(x)
+
 #include <string>
 
 /// Namespace for this library.
