@@ -224,3 +224,11 @@ std::string Pathie::filename_to_utf8(const std::string& native_filename)
   return convert_encodings(fsencoding, "UTF-8", native_filename);
 }
 #endif
+
+// Preprocessor fun: Make the version number macros C strings.
+#define st(a) #a
+#define str(a) st(a)
+std::string Pathie::version()
+{
+  return str(PATHIE_VERSION_MAJOR) "." str(PATHIE_VERSION_MINOR) "." str(PATHIE_VERSION_PATCH);
+}

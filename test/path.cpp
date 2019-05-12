@@ -881,6 +881,8 @@ int main(int argc, char* argv[])
   std::cout << "Cleaning." << std::endl;
   system("rake clean");
 
+  std::cout << "Pathie version: " << Pathie::version() << std::endl;
+
   s_testsettings = get_testsettings();
 
   test_constructor();

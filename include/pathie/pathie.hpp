@@ -46,7 +46,7 @@
 /// Namespace for this library.
 namespace Pathie {
 
-  /// Returns the version number is MAJOR.MINOR.TINY.
+  /// Returns the version number as MAJOR.MINOR.TINY.
   std::string version();
 
   /**

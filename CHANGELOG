@@ -1,5 +1,6 @@
 -- Version 0.1.1 (TBD) --
 
+* Add missing implementation of Pathie::version().
 * Use proper file layout for the headers in the Git repository.
   - Ticket #2 by Quintus
   - PR #16 by TryExceptElse
