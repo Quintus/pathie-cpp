@@ -307,16 +307,20 @@ UTF-8 is used as the filesystem encoding under any UNIX-based system.
 Links
 -----
 
-* Project page: https://mg.guelker.eu/projects/pathie/
+* Project page: https://redmine.guelker.eu/projects/pathie
 * GitHub mirror: https://github.com/Quintus/pathie-cpp
-* Issue tracker: https://github.com/Quintus/pathie-cpp/issues
 
-Contributing
-------------
+Bug reports, Contributing
+-------------------------
 
-Feel free to submit any contributions you deem useful. Try to make
-separate branches for your new features, give a description on what
-you changed, etc.
+If you find a bug or want to request a new feature, write an e-mail to
+kontakt@guelker.eu. Before you do that, please check the bug tracker
+at <https://redmine.guelker.eu/projects/pathie/issues> for duplicates.
+
+Feel free to submit any contributions you deem useful to that same
+e-mail address. You can also use the GitHub mirror's Pull Request
+feature. Try to make separate branches for your new features,
+and give a description on what you changed.
 
 How to run the tests?
 ---------------------
