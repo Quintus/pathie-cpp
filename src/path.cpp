@@ -1478,7 +1478,7 @@ bool Path::exists() const
 
   if (access(nstr.c_str(), F_OK) == -1) {
     int errsav = errno;
-    if (errsav == ENOENT) {
+    if (errsav == ENOENT || errsav == ENOTDIR) {
       return false;
     }
     else {
@@ -1491,7 +1491,7 @@ bool Path::exists() const
   std::wstring utf16 = utf8_to_utf16(m_path);
   if (_waccess(utf16.c_str(), F_OK) == -1) {
     int errsav = errno;
-    if (errsav == ENOENT) {
+    if (errsav == ENOENT || errsav == ENOTDIR) {
       return false;
     }
     else {
