@@ -47,7 +47,10 @@ std::string Pathie::utf16_to_utf8(std::wstring str)
   size = WideCharToMultiByte(CP_UTF8, 0, str.c_str(), str.length(), utf8, size,  NULL, NULL);
 
   if (size == 0)
-    throw(Pathie::WindowsError(GetLastError()));
+  {
+	  free(utf8);
+	  throw(Pathie::WindowsError(GetLastError()));
+  }
 
   std::string utf8str(utf8, size);
   free(utf8);
@@ -69,7 +72,10 @@ std::wstring Pathie::utf8_to_utf16(std::string str)
   count = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), utf16, count);
 
   if (count == 0)
-    throw(Pathie::WindowsError(GetLastError()));
+  {
+	  free(utf16);
+	  throw(Pathie::WindowsError(GetLastError()));
+  }
 
   std::wstring utf16str(utf16, count);
   free(utf16);
@@ -122,8 +128,11 @@ std::string Pathie::convert_encodings(const char* from_encoding, const char* to_
   size_t outbytes_left = 0;
   size_t inbytes_left  = input_length;
 
-  if (converter == (iconv_t) -1)
-    throw Pathie::ErrnoError(errno);
+  if (converter == (iconv_t)-1)
+  {
+	  free(copy);
+	  throw Pathie::ErrnoError(errno);
+  }
 
   /* There is no way to know how much space iconv() will need. So we keep
    * allocating more and more memory as needed. `current_size' keeps track
