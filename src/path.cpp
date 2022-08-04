@@ -95,7 +95,7 @@ Path::localpathtype Path::c_localdefault = LOCALPATH_LOCAL;
  */
 Path::Path()
 {
-  m_path = ".";
+  m_path = "";
 }
 
 /**

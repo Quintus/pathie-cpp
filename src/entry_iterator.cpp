@@ -64,7 +64,16 @@ entry_iterator::entry_iterator(const Path* p_directory)
     mp_cur(NULL),
     mp_cur_path(new Path())
 {
-  open_native_handle();
+	try
+	{
+		open_native_handle();
+	}
+	catch (...)
+	{
+		delete mp_cur_path;
+		mp_cur_path = NULL;
+		throw;
+	}
 }
 
 /**
@@ -267,12 +276,12 @@ entry_iterator& entry_iterator::operator=(const entry_iterator& other)
 {
   mp_directory      = other.mp_directory;
   mp_cur            = other.mp_cur;
-  mp_cur_path       = other.mp_cur_path;
+  *mp_cur_path       = *other.mp_cur_path;
 
   entry_iterator& e = const_cast<entry_iterator&>(other);
   e.mp_directory    = NULL;
   e.mp_cur          = NULL;
-  e.mp_cur_path     = new Path();
+  *e.mp_cur_path     = Path();
 
   return *this;
 }
